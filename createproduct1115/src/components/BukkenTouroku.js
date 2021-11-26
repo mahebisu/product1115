@@ -10,48 +10,58 @@ import { useForm } from "react-hook-form";
 
 const BukkenTouroku = () => {
 
-    const [Bukkenshurui, setBukkenshurui] = useState();
-
-    const radioChange = (event) => {
-        setBukkenshurui(event.target.value);
-        console.log(event.target.value)
-    };
-
     // useformはreact-hook-formのコンポーネント、分割代入してる
         const {
             register,
             handleSubmit,
-            formState: { errors, isDirty, isSubmitting, touchedFields, submitCount },
+            formState: { errors, isValid, isDirty, isSubmitting, touchedFields, submitCount },
             getValues,
             watch,
             reset
         } = useForm();
 
-    // resetの処理
-    const handleReset = () => {
-        //後でやります
-        reset();
-    };
-
     // フォーム送信時の処理
     const onSubmit = (data) => {
         // バリデーションチェックOK！なときに行う処理を追加
-        console.log(isDirty);
+        console.log("isDirty>",isDirty);
+        console.log("isValid>",isValid);
         console.log(submitCount);
+
+        // getValuesの値がエラーなく入れられているかのチェック、inValid?
+
+        
+        // getValuesの値をそれぞれfirebaseに送る工程
+
+
+
+        // 次のページに遷移する
+
+
+
     };
 
-    const emailData = watch("email");
-    const getValuetachi = getValues();
-    console.log(getValuetachi);
+    const [Bukkenshurui, setBukkenshurui] = useState("Tochi");
+    // radioボタンの値を取得する関数の定義
+        const radioChange = (event) => {
+            setBukkenshurui(event.target.value);
+            console.log(event.target.value)
+        };
+
+    // formで入力した値をgetValuesで取得する
+        const getValuetachi = getValues();
+        console.log(getValuetachi);
+
+    // errorsを表示させる
+        console.log("errors>",errors);
 
     return (
 
         <div>
 
-            <h1>物件登録</h1>
+            <h1 style={{textAlign:"center"}}>物件登録</h1>
 
             {/* エラーチェックの表示 */}
-            {/* {!nameValue && <div>名前が入力されてません!!！</div>} */}
+            {/* {errors && <div>{errors}</div>} */}
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
@@ -108,7 +118,10 @@ const BukkenTouroku = () => {
                                     {...register("MokuhyoYear", {
                                     required: true,
                                     maxLength: 4,
-                                    minLength: 4
+                                    minLength: 4,
+                                    min: 2021,
+                                    message: "契約をしたい年を西暦で入力してください"
+
                                 })}
                                 />
 
@@ -119,7 +132,11 @@ const BukkenTouroku = () => {
                                     {...register("MokuhyoMonth", {
                                     required: true,
                                     maxLength: 2,
-                                    minLength: 1
+                                    minLength: 1,
+                                    min: 1,
+                                    max: 12,
+                                    message: "契約をしたい月を数字で入力してください"
+
                                 })}
                                 />
                             </section>
@@ -144,8 +161,6 @@ const BukkenTouroku = () => {
                                     message: "今回の紹介者の有効活用の動機や状況他、伝えたいことを入力してください"
                                 })}
                             />
-
-
 
                         </Stack>
 
@@ -210,7 +225,6 @@ const BukkenTouroku = () => {
                                 label="物件の住居表示（住所）：建物名"
                                 type="text"
                                 {...register("BukkenTatemonomei", {
-                                required: true,
                                 message: "物件の建物名を入力してください"
                                 })}
                                 error={"BukkenTatemonomei" in errors}
@@ -220,7 +234,6 @@ const BukkenTouroku = () => {
                                 label="（任意）物件の地番を入力してください（例 28-3）"
                                 type="text"
                                 {...register("Chiban", {
-                                required: true,
                                 message: "物件の地番を入力してください"
                                 })}
                                 error={"Chiban" in errors}
@@ -230,7 +243,6 @@ const BukkenTouroku = () => {
                                 label="（任意）物件の家屋番号（建物番号）を入力してください"
                                 type="text"
                                 {...register("Tatemonobango", {
-                                required: true,
                                 message: "物件の地番を入力してください"
                                 })}
                                 error={"Tatemonobango" in errors}
@@ -269,6 +281,7 @@ const BukkenTouroku = () => {
                     </Stack>
                     
                     <hr/>
+
                         <Button
                             onClick={onSubmit}
                             color="primary"
@@ -280,8 +293,6 @@ const BukkenTouroku = () => {
                         >
                             作成
                         </Button>
-            
-                        <div onClick={handleReset}>reset</div>
 
                 </Container>
             </form>
