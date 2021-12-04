@@ -2,6 +2,7 @@ import React from "react";
 import BukkenTouroku from "./components/BukkenTouroku";
 import TitlePage from "./components/TitlePage";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Landing from "./components/Landing/Landing";
 
 function App() {
 
@@ -13,6 +14,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<TitlePage />} />
             <Route exact path="/BukkenTouroku" element={<BukkenTouroku />} />
+            <Route exact path="/Landing" element={<Landing />} />
+
           </Routes>
         </BrowserRouter>
       
