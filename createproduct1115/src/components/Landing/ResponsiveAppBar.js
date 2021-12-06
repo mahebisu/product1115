@@ -38,11 +38,16 @@ const ResponsiveAppBar = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"
+      // appbarの色を指定する
+      sx={{backgroundColor:"#00c899"}}
+    >
 
-      <Container maxWidth="xl">
+      <Container maxWidth="xl"
+      >
 
-        <Toolbar disableGutters>
+        <Toolbar disableGutters
+        >
 
           <Typography
             variant="h6"
