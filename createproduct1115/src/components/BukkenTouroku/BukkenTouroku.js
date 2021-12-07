@@ -1,6 +1,9 @@
 import React,{useState} from 'react'
 import { Button, Container, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
+import ResponsiveAppBar from './ResponsiveAppBar'
+import { Link } from "react-router-dom";
+
 // radioボタンをつくるために導入
     import Radio from '@mui/material/Radio';
     import RadioGroup from '@mui/material/RadioGroup';
@@ -58,7 +61,10 @@ const BukkenTouroku = () => {
 
         <div>
 
-            <h1 style={{textAlign:"center"}}>物件登録</h1>
+            {/* ResponsiveAppBarを挿入 */}
+            <ResponsiveAppBar />
+
+            <h1 style={{textAlign:"center"}}>紹介物件情報入力</h1>
 
             {/* エラーチェックの表示 */}
             {/* {errors && <div>{errors}</div>} */}
@@ -284,14 +290,20 @@ const BukkenTouroku = () => {
 
                         <Button
                             onClick={onSubmit}
-                            color="primary"
+                            color="success"
                             variant="contained"
                             size="large"
                             type="submit"
                             fullWidth
                             style={{margintop:500}}
                         >
-                            作成
+                            <Link to="/NyusatsuIchiran"
+                                style={{textDecoration:"none",
+                                color:"#e9fef7",
+                                fontSize:"2vw"
+                            }}>
+                                登録
+                            </Link>
                         </Button>
 
                 </Container>

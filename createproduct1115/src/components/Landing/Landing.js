@@ -1,6 +1,7 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography} from '@mui/material'
 import React from 'react'
 import ResponsiveAppBar from './ResponsiveAppBar'
+import { Link } from "react-router-dom";
 // 写真をインポート
 import pic1 from "./top-main.jpg"
 import pic2 from "./toppic2.jpg"
@@ -11,6 +12,7 @@ const Landing = () => {
 
 
     return (
+        
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
@@ -26,7 +28,11 @@ const Landing = () => {
                 alignItems:"center"
             }}>
 
-            <Stack spacing={2}>
+            <Stack spacing={2}
+                sx={{justifyContent:"center",
+                alignItems: "center"
+            }}
+            >
 
                 <h1 style={{textAlign:"center",
                     color:"#00c899",
@@ -40,8 +46,17 @@ const Landing = () => {
                     // successは緑っぽい色
                     color="success"
                     size="large"
+                    sx={{Width:300,
+                        textAlign:"center"
+                    }}
                 >
-                    新規登録開始
+                    <Link to="/UserReg"
+                        style={{textDecoration:"none",
+                        color:"#e9fef7",
+                        fontSize:"3vw"
+                    }}>
+                        新規登録開始
+                    </Link>
                 </Button>
                 
             </Stack>
@@ -121,7 +136,7 @@ const Landing = () => {
                 />
                 <CardContent>
                     <Typography variant="h4" color="text.secondary">
-                    紹介料はオークションで決定。金額比較して、お客さんにぴったりの紹介先を選んだら、紹介しよう
+                        紹介料はオークションで決定。金額比較して、お客さんにぴったりの紹介先を選んだら、紹介しよう
                     </Typography>
                 </CardContent>
             </Card>
@@ -131,10 +146,16 @@ const Landing = () => {
                 color="success"
                 size="large"
                 sx={{margin:"0 auto 1000",
-                    width:"50vw",
+                    maxWidth:"300",
                 }}
             >
-                    新規登録開始
+                    <Link to="/UserReg"
+                        style={{textDecoration:"none",
+                        color:"#e9fef7",
+                        fontSize:"3vw"
+                    }}>
+                        新規登録開始
+                    </Link>
             </Button>
 
         </Stack>
