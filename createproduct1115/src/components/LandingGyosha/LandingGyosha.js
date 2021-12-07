@@ -8,7 +8,7 @@ import pic2 from "./toppic2.jpg"
 import pic3 from "./toppic3.jpg"
 import pic4 from "./toppic4.jpg"
 
-const Landing = () => {
+const LandingGyosha = () => {
 
 
     return (
@@ -38,7 +38,7 @@ const Landing = () => {
                     color:"#00c899",
                     fontSize:"5vw"
                 }}>
-                    友達の不動産の相談を売ろう 
+                    独自の地主の紹介客がみつかる 
                 </h1>
 
                 {/* 登録ボタン */}
@@ -50,12 +50,12 @@ const Landing = () => {
                         textAlign:"center"
                     }}
                 >
-                    <Link to="/UserReg"
+                    <Link to="/GyoshaReg"
                         style={{textDecoration:"none",
                         color:"#e9fef7",
                         fontSize:"3vw"
                     }}>
-                        新規登録開始
+                        業者登録開始
                     </Link>
                 </Button>
                 
@@ -68,25 +68,25 @@ const Landing = () => {
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                〇〇〇〇〇はあなたの周りのご家族が所有している不動産の相談を 
+                〇〇〇〇〇は地主家族の不動産の相談を受けている人に 
             </h1>
 
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                不動産会社・建築業者に紹介して報酬をもらうサービスです 
+                お客様を紹介してもらえるサービスです 
             </h1>
 
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                ～報酬は各企業からのオークション制～
+                ～買取・建替え・リフォーム・賃貸、提案はいろいろ～
             </h1>
 
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                実績や報酬から最適な紹介先を選ぼう            
+                市場に出回らない案件を誰よりも早く検討しよう            
             </h1>
 
         </Stack>
@@ -108,7 +108,7 @@ const Landing = () => {
                 />
                 <CardContent>
                     <Typography variant="h4" color="text.secondary">
-                        あなたの周りやお客さんの中に不動産を持っている人はいませんか。美容師、ネイリスト、パーソナルトレーナー、保険営業員、介護士、その他日々お客さんの幸せのために努力しているあなたを待っていました
+                        美容師、ネイリスト、パーソナルトレーナー、保険営業員、介護士、その他日々お客さんとの接点の多い「仲人」からお客さんを紹介してもらおう
                     </Typography>
                 </CardContent>
             </Card>
@@ -122,7 +122,7 @@ const Landing = () => {
                 />
                 <CardContent>
                     <Typography variant="h4" color="text.secondary">
-                        不動産を売却する/建替える/リフォームする/貸出す/太陽光発電する、その他有効活用など紹介先はいろいろ
+                        不動産を売却する/建替える/リフォームする/貸出す/太陽光発電する、その他有効活用などお客様の検討候補はいろいろ
                     </Typography>
                 </CardContent>
             </Card>
@@ -136,7 +136,7 @@ const Landing = () => {
                 />
                 <CardContent>
                     <Typography variant="h4" color="text.secondary">
-                        紹介料はオークションで決定。金額比較して、お客さんにぴったりの紹介先を選んだら、紹介しよう
+                        自分の欲しい案件をみつけたら、紹介してもらえるように紹介料を入札しよう
                     </Typography>
                 </CardContent>
             </Card>
@@ -149,27 +149,22 @@ const Landing = () => {
                     maxWidth:"300",
                 }}
             >
-                    <Link to="/UserReg"
+                    <Link to="/GyoshaReg"
                         style={{textDecoration:"none",
                         color:"#e9fef7",
                         fontSize:"3vw"
                     }}>
-                        新規登録開始
+                        業者登録開始
                     </Link>
             </Button>
 
         </Stack>
 
-        <footer style={{pt:10,textAlign:"right"}}>
-            <p  sx={{pt:"5"}}>
-                    <Link to="/LandingGyosha"
-                        style={{textDecoration:"none",
-                        color:"#002c1b",
-                        fontSize:"1vw"
+        <footer>
+            <div  sx={{margin:"1000 auto 1000"
                     }}>
-                        不動産会社・建設会社の方はこちら
-                    </Link>
-            </p>
+                footer
+            </div>
         </footer>
 
     </div>
@@ -177,4 +172,4 @@ const Landing = () => {
     )
 }
 
-export default Landing
+export default LandingGyosha

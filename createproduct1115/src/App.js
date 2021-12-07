@@ -7,6 +7,11 @@ import UserReg from "./components/UserReg/UserReg";
 import UserReg2 from "./components/UserReg/UserReg2";
 import NyusatsuIchiran from "./components/NyusatsuIchiran/NyusatsuIchiran";
 import NyusatsuShosai from "./components/NyusatsuIchiran/NyusatsuShosai";
+import LandingGyosha from "./components/LandingGyosha/LandingGyosha";
+import GyoshaReg from "./components/GyoshaReg/GyoshaReg";
+import GyoshaReg2 from "./components/GyoshaReg/GyoshaReg2";
+import ProjectIchiran from "./components/ProjectIchiran/ProjectIchiran";
+import ProjectShosai from "./components/ProjectIchiran/ProjectShosai";
 
 function App() {
 
@@ -22,6 +27,12 @@ function App() {
             <Route exact path="/BukkenTouroku" element={<BukkenTouroku />} />
             <Route exact path="/NyusatsuIchiran" element={<NyusatsuIchiran />} />
             <Route exact path="/NyusatsuShosai" element={<NyusatsuShosai />} />
+            <Route exact path="/LandingGyosha" element={<LandingGyosha />} />
+            <Route exact path="/GyoshaReg" element={<GyoshaReg />} />
+            <Route exact path="/GyoshaReg2" element={<GyoshaReg2 />} />
+            <Route exact path="/ProjectIchiran" element={<ProjectIchiran />} />
+            <Route exact path="/ProjectShosai" element={<ProjectShosai />} />
+
             <Route exact path="/" element={<TitlePage />} />
           </Routes>
         </BrowserRouter>
