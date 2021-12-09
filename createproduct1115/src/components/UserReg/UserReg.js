@@ -3,6 +3,8 @@ import React,{useState} from 'react'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 
 // 写真をインポート
 
@@ -17,6 +19,11 @@ const UserReg = () => {
         watch,
         reset
     } = useForm();
+
+
+
+    // navigateを宣言
+    let navigate = useNavigate();
 
     // フォーム送信時の処理
     const onSubmit = (data) => {
@@ -33,11 +40,11 @@ const UserReg = () => {
 
 
         // 次のページに遷移する
+        navigate("/UserReg2");
 
 
 
     };
-
 
     // formで入力した値をgetValuesで取得する
         const getValuetachi = getValues();
@@ -101,14 +108,7 @@ const UserReg = () => {
                             fullWidth
                             style={{margintop:500}}
                         >
-                            <Link to="/UserReg2"
-                                style={{textDecoration:"none",
-                                color:"#e9fef7",
-                                fontSize:"2vw"
-                            }}>
                                 ユーザー登録
-                            </Link>
-
                         </Button>
 
                     </Stack>

@@ -11,9 +11,6 @@ import { CardActionArea } from '@mui/material';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-
-
 const cardcontain = (
     <React.Fragment>
         <CardActionArea>
@@ -35,7 +32,7 @@ const cardcontain = (
                             <Button variant="contained"
                                 // successは緑っぽい色
                                 color="success"
-                                sx={{width:170,
+                                sx={{width:200,
                                     margin:"auto"
                                 }}
                             >

@@ -3,6 +3,8 @@ import React,{useState} from 'react'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 
 // 写真をインポート
 
@@ -17,6 +19,10 @@ const UserReg = () => {
         watch,
         reset
     } = useForm();
+
+
+    // navigateを宣言
+    let navigate = useNavigate();
 
     // フォーム送信時の処理
     const onSubmit = (data) => {
@@ -33,6 +39,8 @@ const UserReg = () => {
 
 
         // 次のページに遷移する
+        navigate("/GyoshaReg2");
+        
 
 
 
@@ -70,24 +78,24 @@ const UserReg = () => {
                         <TextField
                             label="自分のメールアドレス"
                             type="email"
-                            {...register("EmailNakoudo", {
+                            {...register("EmailGyosha", {
                             required: true,
                             minLength: 5,
                             message: "メールアドレス（@を入れて5字以上）を入力してください"
                             })}
-                            error={"EmailNakoudo" in errors}
+                            error={"EmailGyosha" in errors}
                         />
 
 
                         <TextField
                             label="パスワードを設定(6文字以上)"
                             type="password"
-                            {...register("PassNakoudo", {
+                            {...register("PassGyosha", {
                                 required: true,
                                 minLength: 6,
-                                message: "希望の紹介料（円）を入力してください"
+                                message: "設定するパスワードを6文字以上で入力してください"
                             })}
-                            error={"EmailNakoudo" in errors}
+                            error={"PassGyosha" in errors}
                         />
 
                         <hr/>
@@ -101,14 +109,7 @@ const UserReg = () => {
                             fullWidth
                             style={{margintop:500}}
                         >
-                            <Link to="/GyoshaReg2"
-                                style={{textDecoration:"none",
-                                color:"#e9fef7",
-                                fontSize:"2vw"
-                            }}>
                                 業者登録
-                            </Link>
-
                         </Button>
 
                     </Stack>

@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
-import { Button, Container, Stack, TextField } from "@mui/material";
+import { Button, Container, Stack, TextField,Box,ToggleButton,ToggleButtonGroup,Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ResponsiveAppBar from './ResponsiveAppBar'
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import pic1 from "./Mappic.png"
+import InputAdornment from '@mui/material/InputAdornment';
 
 // radioボタンをつくるために導入
     import Radio from '@mui/material/Radio';
@@ -10,6 +13,11 @@ import { Link } from "react-router-dom";
     import FormControlLabel from '@mui/material/FormControlLabel';
     import FormControl from '@mui/material/FormControl';
     import FormLabel from '@mui/material/FormLabel';
+// switchをつくるために導入    
+    import Switch from '@mui/material/Switch';
+    import FormGroup from '@mui/material/FormGroup';
+
+
 
 const BukkenTouroku = () => {
 
@@ -22,6 +30,9 @@ const BukkenTouroku = () => {
             watch,
             reset
         } = useForm();
+
+    // navigateを宣言
+    let navigate = useNavigate();
 
     // フォーム送信時の処理
     const onSubmit = (data) => {
@@ -38,9 +49,7 @@ const BukkenTouroku = () => {
 
 
         // 次のページに遷移する
-
-
-
+        navigate("/UserReg2");
     };
 
     const [Bukkenshurui, setBukkenshurui] = useState("Tochi");
@@ -49,6 +58,12 @@ const BukkenTouroku = () => {
             setBukkenshurui(event.target.value);
             console.log(event.target.value)
         };
+
+    // ToggleButtonGroupを動かすためにコピペ 
+    const [alignment, setAlignment] = React.useState('Tochi');
+    const handleChange = (event, newAlignment) => {
+        setAlignment(newAlignment);
+    };
 
     // formで入力した値をgetValuesで取得する
         const getValuetachi = getValues();
@@ -64,7 +79,7 @@ const BukkenTouroku = () => {
             {/* ResponsiveAppBarを挿入 */}
             <ResponsiveAppBar />
 
-            <h1 style={{textAlign:"center"}}>紹介物件情報入力</h1>
+            <h1 style={{textAlign:"center"}}>紹介物件の登録をしよう</h1>
 
             {/* エラーチェックの表示 */}
             {/* {errors && <div>{errors}</div>} */}
@@ -72,217 +87,111 @@ const BukkenTouroku = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <Container maxWidth="lg" sx={{ pt: 5 }}>
-
-                    <Stack direction="row" spacing={5}>
                     
-                        <Stack spacing={3}>
+                    <Stack spacing={3}>
 
-                            <TextField
-                                label="あなたが紹介する人の氏名"
-                                type="text"
-                                {...register("NameJinushi", {
-                                required: true,
-                                message: "氏名を入力してください"
-                                })}
-                                error={"NameJinushi" in errors}
-                            />
-                
-                            <TextField
-                                label="あなたと紹介者の関係を簡単に説明してください"
-                                type="text"
-                                {...register("RelationSetsumei", {
-                                required: true,
-                                message: "あなたと紹介者の関係を説明してください"
-                                })}
-                                error={"RelationSetsumei" in errors}
-                            />
-                            <TextField
-                                label="紹介者の電話番号"
-                                type="number"
-                                {...register("PhoneJinushi", {
-                                maxLength: 11,
-                                minLength: 11,
-                                message: "電話番号を11桁で入力してください"
-                                })}
-                                error={"PhoneJinushi" in errors}
-                            />
-                                
-                            <TextField
-                                label="紹介者のメールアドレス"
-                                type="email"
-                                {...register("EmailJinushi", {
-                                required: true,
-                                minLength: 5,
-                                message: "メールアドレス（@を入れて5字以上）を入力してください"
-                                })}
-                                error={"EmailJinushi" in errors}
-                            />
-                            <section>
-                                <TextField
-                                    label="西暦〇年"
-                                    type="number"
-                                    {...register("MokuhyoYear", {
-                                    required: true,
-                                    maxLength: 4,
-                                    minLength: 4,
-                                    min: 2021,
-                                    message: "契約をしたい年を西暦で入力してください"
+                        <TextField
+                            label="STEP1 物件の住所はどこですか"
+                            type="text"
+                            helperText="物件の住所を入力してください"
+                            {...register("BukkenAddress", {
+                            required: true,
+                            message: "物件の住所を入力してください"
+                            })}
+                            error={"BukkenAddress" in errors}
+                        />
 
-                                })}
-                                />
+                        {/* ここには後でGooglemapsを入れる */}
+                        <Box sx={{
+                            backgroundImage: `url(${pic1})`,
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "100% auto",
+                            width:"80%",
+                            height:"57.4vw",
+                        }}/>
 
+                        <Stack>
+                            <Typography variant="h7" color="text.secondary">
+                                STEP2 物件の種類
+                            </Typography>
 
-                                <TextField
-                                    label="〇月までに契約したい"
-                                    type="number"
-                                    {...register("MokuhyoMonth", {
-                                    required: true,
-                                    maxLength: 2,
-                                    minLength: 1,
-                                    min: 1,
-                                    max: 12,
-                                    message: "契約をしたい月を数字で入力してください"
-
-                                })}
-                                />
-                            </section>
-
-
-                            <TextField
-                                label="希望の紹介料（円）"
-                                type="number"
-                                {...register("KibouFee", {
-                                    required: true,
-                                    minLength: 1,
-                                    message: "希望の紹介料（円）を入力してください"
-                                })}
-                            />
-
-                            <TextField
-                                label="今回の紹介者の有効活用の動機や状況他、伝えたいこと"
-                                type="text"
-                                multiline
-                                rows={6}
-                                {...register("CommentTo", {
-                                    message: "今回の紹介者の有効活用の動機や状況他、伝えたいことを入力してください"
-                                })}
-                            />
-
+                            {/* 物件の種類を選択するボタングループ */}
+                            <ToggleButtonGroup
+                                color="success"
+                                value={alignment}
+                                exclusive
+                                onChange={handleChange}
+                                sx={{alignItems:"center"}}
+                            >
+                                <ToggleButton value="Tochi">土地だけ</ToggleButton>
+                                <ToggleButton value="Kodate">建物＋土地</ToggleButton>
+                                <ToggleButton value="Apartment">分譲マンション</ToggleButton>
+                            </ToggleButtonGroup>
                         </Stack>
 
-                        <Stack spacing={3}>
+                        {/* 提案する有効活用の内容 */}
+                        <Stack>
+                            <Typography variant="h7" color="text.secondary">
+                                STEP3 今回の有効活用希望（複数選択可）
+                            </Typography>
 
-                            {/* 物件の種類を選択するラジオボタンをつくる */}
-                                <FormControl component="fieldset">
-                                    <FormLabel component="legend">物件の種類</FormLabel>
-                                    <RadioGroup 
-                                        row aria-label="bukkenshurui"
-                                        name="row-radio-buttons-group"
-                                        value={Bukkenshurui}
-                                        onChange={radioChange}
-                                    >
-                                        <FormControlLabel value="Tochi" control={<Radio />} label="土地" />
-                                        <FormControlLabel value="Kodate" control={<Radio />} label="土地＋建物" />
-                                        <FormControlLabel value="Apartment" control={<Radio />} label="分譲マンション" />
-                                    </RadioGroup>
-                                </FormControl>
-
-                            <TextField
-                                label="物件の住居表示（住所）：都道府県"
-                                type="text"
-                                {...register("BukkenPrefecture", {
-                                required: true,
-                                message: "物件の都道府県を入力してください"
-                                })}
-                                error={"BukkenPrefecture" in errors}
-                            />
-
-                            <TextField
-                                label="物件の住居表示（住所）：市区町村"
-                                type="text"
-                                {...register("BukkenShichoson", {
-                                required: true,
-                                message: "物件の市区町村を入力してください"
-                                })}
-                                error={"BukkenShichoson" in errors}
-                            />
-
-                            <TextField
-                                label="物件の住居表示（住所）：大字/町名"
-                                type="text"
-                                {...register("BukkenChomei", {
-                                required: true,
-                                message: "物件の大字を入力してください"
-                                })}
-                                error={"BukkenChomei" in errors}
-                            />
-
-                            <TextField
-                                label="物件の住居表示（住所）：その他以下"
-                                type="text"
-                                {...register("BukkenChomei", {
-                                required: true,
-                                message: "物件の大字を入力してください"
-                                })}
-                                error={"BukkenChomei" in errors}
-                            />
-
-                            <TextField
-                                label="物件の住居表示（住所）：建物名"
-                                type="text"
-                                {...register("BukkenTatemonomei", {
-                                message: "物件の建物名を入力してください"
-                                })}
-                                error={"BukkenTatemonomei" in errors}
-                            />
-
-                            <TextField
-                                label="（任意）物件の地番を入力してください（例 28-3）"
-                                type="text"
-                                {...register("Chiban", {
-                                message: "物件の地番を入力してください"
-                                })}
-                                error={"Chiban" in errors}
-                            />
-
-                            <TextField
-                                label="（任意）物件の家屋番号（建物番号）を入力してください"
-                                type="text"
-                                {...register("Tatemonobango", {
-                                message: "物件の地番を入力してください"
-                                })}
-                                error={"Tatemonobango" in errors}
-                            />
-
-                            <TextField
-                                label="土地面積（㎡）"
-                                type="number"
-                                {...register("TochiMenseki", {
-                                message: "土地面積（㎡）を入力してください"
-                                })}
-                                error={"TochiMenseki" in errors}
-                            />
-
-                            <TextField
-                                label="建物総床面積（㎡）"
-                                type="number"
-                                {...register("TatemonoMenseki", {
-                                message: "建物総床面積（㎡）を入力してください"
-                                })}
-                                error={"TatemonoMenseki" in errors}
-                            />
-
-                            <TextField
-                                label="建物の竣工年（西暦）"
-                                type="number"
-                                {...register("TatemonoYear", {
-                                maxLength: 4,
-                                minLength: 4
-                                })}
-                            />
-
-
+                            {/* switchのコピペ */}
+                            <FormGroup>
+                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="売却希望" />
+                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="建替え・リフォーム"  />
+                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="貸出し"  />
+                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="その他有効活用"  />
+                            </FormGroup>
                         </Stack>
+
+
+                        <TextField
+                            label="STEP4 紹介する方の氏名"
+                            type="text"
+                            helperText="今回ご紹介いただく方の氏名を入力してください(※入札終了後開示されます)"
+                            {...register("NameJinushi", {
+                            required: true,
+                            message: "今回ご紹介いただく方の氏名を入力してください"
+                            })}
+                            error={"NameJinushi" in errors}
+                        />
+
+                        <TextField
+                            label="STEP5 紹介者のメールアドレス"
+                            type="email"
+                            helperText="今回ご紹介いただく方のメールアドレスを入力してください(※入札終了後開示されます)"
+                            {...register("EmailJinushi", {
+                            required: true,
+                            minLength: 5,
+                            message: "メールアドレス（@を入れて5字以上）を入力してください"
+                            })}
+                            error={"EmailJinushi" in errors}
+                        />
+
+                        <TextField
+                            label="STEP6 今回の紹介者の有効活用の動機や状況他、伝えたいこと"
+                            type="text"
+                            helperText="物件の大きさ/古さ/検討動機など、情報が詳しいほど検討する会社の数が増え、紹介料も高くなります"
+                            multiline
+                            rows={6}
+                            {...register("CommentTo", {
+                                message: "今回の紹介者の有効活用の動機や状況他、伝えたいことを入力してください"
+                            })}
+                        />
+
+                        <TextField
+                            label="STEP7 希望の紹介料"
+                            type="number"
+                            helperText="希望する紹介料を入力してください。実際の入札金額とは異なる場合があります"
+                            InputProps={{
+                                endAdornment: <InputAdornment position="end">万円</InputAdornment>,
+                              }}
+                            {...register("KibouFee", {
+                                required: true,
+                                minLength: 1,
+                                message: "希望の紹介料を入力してください"
+                            })}
+                        />
 
                     </Stack>
                     
@@ -295,15 +204,10 @@ const BukkenTouroku = () => {
                             size="large"
                             type="submit"
                             fullWidth
-                            style={{margintop:500}}
+                            style={{margintop:500,
+                                fontSize:"1vw"}}
                         >
-                            <Link to="/NyusatsuIchiran"
-                                style={{textDecoration:"none",
-                                color:"#e9fef7",
-                                fontSize:"2vw"
-                            }}>
-                                登録
-                            </Link>
+                            紹介料の入札開始
                         </Button>
 
                 </Container>

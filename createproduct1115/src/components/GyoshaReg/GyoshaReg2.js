@@ -3,6 +3,7 @@ import React,{useState} from 'react'
 import ResponsiveAppBar from './ResponsiveAppBar'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 // radioボタンをつくるために導入
     import Radio from '@mui/material/Radio';
@@ -26,6 +27,10 @@ const UserReg = () => {
         reset
     } = useForm();
 
+
+    // navigateを宣言
+    let navigate = useNavigate();
+
     // フォーム送信時の処理
     const onSubmit = (data) => {
         // バリデーションチェックOK！なときに行う処理を追加
@@ -41,7 +46,7 @@ const UserReg = () => {
 
 
         // 次のページに遷移する
-
+        navigate("/ProjectIchiran");
 
 
     };
@@ -215,14 +220,7 @@ const UserReg = () => {
                             fullWidth
                             style={{margintop:500}}
                         >
-                            <Link to="/ProjectIchiran"
-                                style={{textDecoration:"none",
-                                color:"#e9fef7",
-                                fontSize:"2vw"
-                            }}>
-                                エージェントプロフィール登録
-                            </Link>
-
+                            エージェントプロフィール登録
                         </Button>
 
                     </Stack>
