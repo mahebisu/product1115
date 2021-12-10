@@ -201,7 +201,7 @@ const ProjectShosai = () => {
                             fullWidth
                             style={{margintop:500,width:300}}
                         >
-                            <Link to="/NyusatsuIchiran"
+                            <Link to="/ProjectIchiran"
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
                                 fontSize:"2vw"
@@ -219,7 +219,7 @@ const ProjectShosai = () => {
                             fullWidth
                             style={{margintop:500,width:300}}
                         >
-                            <Link to="/NyusatsuIchiran"
+                            <Link to="/ProjectIchiran"
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
                                 fontSize:"2vw"

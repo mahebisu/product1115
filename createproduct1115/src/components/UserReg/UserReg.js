@@ -21,19 +21,6 @@ const UserReg = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-  
-    useEffect(() => {
-
-      //Firebase ver9 compliant (modular)
-      const unSub = onAuthStateChanged(auth, (user) => {
-        console.log("user情報>",user);
-        user && navigate("/NyusatsuIchiran");
-      });
-
-      return () => unSub();
-
-    }, []);
-  
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
     const {
@@ -83,7 +70,7 @@ const UserReg = () => {
                         <Typography variant="h4" color="text.success"
                             sx={{textAlign:"center"}}
                         >
-                            {isLogin ? "ログイン" : "新規ユーザー登録"}
+                            新規ユーザー登録
                         </Typography>
 
                         <TextField
@@ -101,7 +88,7 @@ const UserReg = () => {
 
 
                         <TextField
-                            label={ isLogin ? 'パスワードを入力(6文字以上)' : 'パスワードを設定(6文字以上)' }
+                            label='パスワードを設定(6文字以上)'
                             type="password"
                             {...register("PassNakoudo", {
                                 required: true,
@@ -116,7 +103,6 @@ const UserReg = () => {
                         <hr/>
 
                         <Button
-                            // onClick={onSubmit}
                             color="success"
                             variant="contained"
                             size="large"
@@ -147,7 +133,7 @@ const UserReg = () => {
                               }
                       
                         >
-                            {isLogin ? "ログイン" : "新規ユーザー登録"}
+                            新規ユーザー登録
 
                         </Button>
 

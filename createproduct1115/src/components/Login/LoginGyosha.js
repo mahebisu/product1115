@@ -27,7 +27,7 @@ const UserReg = () => {
       //Firebase ver9 compliant (modular)
       const unSub = onAuthStateChanged(auth, (user) => {
         console.log("user情報>",user);
-        user && navigate("/NyusatsuIchiran");
+        user && navigate("/ProjectIchiran");
       });
 
       return () => unSub();

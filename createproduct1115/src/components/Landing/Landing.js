@@ -1,7 +1,14 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography} from '@mui/material'
-import React from 'react'
+import React,{useEffect} from 'react'
 import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 import { Link } from "react-router-dom";
+
+// ログイン処理
+    import { db, auth } from "../../firebase";
+    import { onAuthStateChanged, signOut } from "firebase/auth";
+    import { useNavigate } from "react-router-dom";
+
+
 // 写真をインポート
 import pic1 from "./top-main.jpg"
 import pic2 from "./toppic2.jpg"
@@ -10,6 +17,8 @@ import pic4 from "./toppic4.jpg"
 
 const Landing = () => {
 
+    // navigateを宣言
+        let navigate = useNavigate();
 
     return (
         

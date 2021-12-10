@@ -49,7 +49,7 @@ const BukkenTouroku = () => {
 
 
         // 次のページに遷移する
-        navigate("/UserReg2");
+        navigate("/NyusatsuIchiran");
     };
 
     const [Bukkenshurui, setBukkenshurui] = useState("Tochi");

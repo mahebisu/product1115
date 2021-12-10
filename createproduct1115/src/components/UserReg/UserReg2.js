@@ -112,7 +112,6 @@ const UserReg = () => {
                                         required: true,
                                         maxLength: 4,
                                         minLength: 4,
-                                        min: 2021,
                                         message: "あなたの誕生年を西暦で入力してください"
                                 })}
                                 />

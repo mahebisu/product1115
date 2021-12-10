@@ -65,7 +65,7 @@ const ResponsiveAppBar = () => {
 
       try {
         signOut(auth);
-        navigate("/Landing");
+        navigate("/LandingGyosha");
       } catch (error) {
         alert(error.message);
       }
@@ -80,7 +80,7 @@ const ResponsiveAppBar = () => {
   };
 
   const navigateLogin = () => {
-    navigate("/Login")
+    navigate("/LoginGyosha")
   };
 
   return (
