@@ -1,6 +1,6 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography} from '@mui/material'
 import React from 'react'
-import ResponsiveAppBar from './ResponsiveAppBar'
+import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 import { Link } from "react-router-dom";
 // 写真をインポート
 import pic1 from "./top-main.jpg"

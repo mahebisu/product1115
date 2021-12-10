@@ -5,13 +5,19 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+
 // ⇒@mui/icons-materialインストールした
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
+  import MenuIcon from '@mui/icons-material/Menu';
+  import Container from '@mui/material/Container';
+  import Avatar from '@mui/material/Avatar';
+  import Button from '@mui/material/Button';
+  import Tooltip from '@mui/material/Tooltip';
+  import MenuItem from '@mui/material/MenuItem';
+
+// signoutのためにimport
+  import { onAuthStateChanged, signOut } from "firebase/auth";
+  import { useNavigate } from "react-router-dom";
+  import { db, auth } from "../../firebase";
 
 const pages = ['内容１', '内容２', '内容３'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -21,6 +27,10 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  // navigateを宣言
+    let navigate = useNavigate();
+
+
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
@@ -29,7 +39,21 @@ const ResponsiveAppBar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (event) => {
+
+    console.log("navmenuを押してevent>",event.target.textContent);
+
+    if (event.target.textContent == settings[3]){
+
+      try {
+        signOut(auth);
+        navigate("/Landing");
+      } catch (error) {
+        alert(error.message);
+      }
+
+    }
+
     setAnchorElNav(null);
   };
 
@@ -150,8 +174,8 @@ const ResponsiveAppBar = () => {
             >
 
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting} onClick={handleCloseNavMenu} value={setting}>
+                  <Typography textAlign="center" value={setting}>{setting}</Typography>
                 </MenuItem>
               ))}
 

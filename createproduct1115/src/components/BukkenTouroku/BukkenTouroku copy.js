@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Button, Container, Stack, TextField } from "@mui/material";
 import { useForm } from "react-hook-form";
-import ResponsiveAppBar from './ResponsiveAppBar'
+import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 
 // radioボタンをつくるために導入
     import Radio from '@mui/material/Radio';

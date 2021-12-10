@@ -1,14 +1,39 @@
+import React,{useState,useEffect} from 'react'
+
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography,TextField } from '@mui/material'
-import React,{useState} from 'react'
-import ResponsiveAppBar from './ResponsiveAppBar'
+import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+// ログイン機能（講義からコピペ）
+    import { auth } from "../../firebase";
+    import {
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    } from "firebase/auth";
 
-// 写真をインポート
+
 
 const UserReg = () => {
+
+    const [isLogin, setIsLogin] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+  
+    useEffect(() => {
+
+      //Firebase ver9 compliant (modular)
+      const unSub = onAuthStateChanged(auth, (user) => {
+        console.log("user情報>",user);
+        user && navigate("/NyusatsuIchiran");
+      });
+
+      return () => unSub();
+
+    }, []);
+  
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
     const {
@@ -26,33 +51,46 @@ const UserReg = () => {
     let navigate = useNavigate();
 
     // フォーム送信時の処理
-    const onSubmit = (data) => {
+    const onSubmit = () => {
         // バリデーションチェックOK！なときに行う処理を追加
-        console.log("isDirty>",isDirty);
-        console.log("isValid>",isValid);
-        console.log(submitCount);
+            console.log("isDirty>",isDirty);
+            console.log("isValid>",isValid);
+            console.log(submitCount);
+            console.log("メールとパスは>",email,password);
 
         // getValuesの値がエラーなく入れられているかのチェック、inValid?
+            console.log("getvalue",getValuetachi);
 
-        
-        // getValuesの値をそれぞれfirebaseに送る工程
-
-
-
-        // 次のページに遷移する
-        navigate("/UserReg2");
-
-
+        // createUserWithEmailAndPasswordでuseStateのemail、password値をそれぞれfirebaseに送る工程
+            // if (isLogin) { 
+            //     async () => {
+            //         try {
+            //         //Firebase ver9 compliant (modular)
+            //         await signInWithEmailAndPassword(auth, email, password);
+            //         navigate("/NyusatsuIchiran");
+            //         } catch (error) {
+            //         alert(error.message);
+            //         }
+            //     }
+            // }else {
+            //      async () => {
+            //         try {
+            //         //Firebase ver9 compliant (modular)
+            //         await createUserWithEmailAndPassword(auth, email, password);
+            //         navigate("/UserReg2");
+            //         } catch (error) {
+            //         alert(error.message);
+            //         }
+            //     }
+            // }
 
     };
 
     // formで入力した値をgetValuesで取得する
         const getValuetachi = getValues();
-        console.log(getValuetachi);
 
     // errorsを表示させる
         console.log("errors>",errors);
-
 
 
     return (
@@ -71,7 +109,7 @@ const UserReg = () => {
                         <Typography variant="h4" color="text.success"
                             sx={{textAlign:"center"}}
                         >
-                            新規ユーザー登録
+                            {isLogin ? "ログイン" : "新規ユーザー登録"}
                         </Typography>
 
                         <TextField
@@ -83,11 +121,13 @@ const UserReg = () => {
                             message: "メールアドレス（@を入れて5字以上）を入力してください"
                             })}
                             error={"EmailNakoudo" in errors}
+
+                            onChange={(e) => setEmail(e.target.value)}
                         />
 
 
                         <TextField
-                            label="パスワードを設定(6文字以上)"
+                            label={ isLogin ? 'パスワードを入力(6文字以上)' : 'パスワードを設定(6文字以上)' }
                             type="password"
                             {...register("PassNakoudo", {
                                 required: true,
@@ -95,20 +135,46 @@ const UserReg = () => {
                                 message: "希望の紹介料（円）を入力してください"
                             })}
                             error={"EmailNakoudo" in errors}
+
+                            onChange={(e) => setPassword(e.target.value)}
                         />
 
                         <hr/>
 
                         <Button
-                            onClick={onSubmit}
+                            // onClick={onSubmit}
                             color="success"
                             variant="contained"
                             size="large"
                             type="submit"
                             fullWidth
                             style={{margintop:500}}
+
+                            onClick={
+                                isLogin
+                                  ? async () => {
+                                      try {
+                                        //Firebase ver9 compliant (modular)
+                                        await signInWithEmailAndPassword(auth, email, password);
+                                        navigate("/");
+                                      } catch (error) {
+                                        alert(error.message);
+                                      }
+                                    }
+                                  : async () => {
+                                      try {
+                                        //Firebase ver9 compliant (modular)
+                                        await createUserWithEmailAndPassword(auth, email, password);
+                                        navigate("/");
+                                      } catch (error) {
+                                        alert(error.message);
+                                      }
+                                    }
+                              }
+                      
                         >
-                                ユーザー登録
+                            {isLogin ? "ログイン" : "新規ユーザー登録"}
+
                         </Button>
 
                     </Stack>

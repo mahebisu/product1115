@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Stack, TextField,Typography } from "@mui/material";
-import ResponsiveAppBar from './ResponsiveAppBar'
+import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 import { Link } from "react-router-dom";
 
 // タブを作成するためにimportする
