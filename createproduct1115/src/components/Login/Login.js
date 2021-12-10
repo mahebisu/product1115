@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserReg = () => {
 
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
@@ -57,6 +57,32 @@ const UserReg = () => {
             console.log("isValid>",isValid);
             console.log(submitCount);
             console.log("メールとパスは>",email,password);
+
+        // getValuesの値がエラーなく入れられているかのチェック、inValid?
+            console.log("getvalue",getValuetachi);
+
+        // createUserWithEmailAndPasswordでuseStateのemail、password値をそれぞれfirebaseに送る工程
+            // if (isLogin) { 
+            //     async () => {
+            //         try {
+            //         //Firebase ver9 compliant (modular)
+            //         await signInWithEmailAndPassword(auth, email, password);
+            //         navigate("/NyusatsuIchiran");
+            //         } catch (error) {
+            //         alert(error.message);
+            //         }
+            //     }
+            // }else {
+            //      async () => {
+            //         try {
+            //         //Firebase ver9 compliant (modular)
+            //         await createUserWithEmailAndPassword(auth, email, password);
+            //         navigate("/UserReg2");
+            //         } catch (error) {
+            //         alert(error.message);
+            //         }
+            //     }
+            // }
 
     };
 
@@ -130,7 +156,7 @@ const UserReg = () => {
                                       try {
                                         //Firebase ver9 compliant (modular)
                                         await signInWithEmailAndPassword(auth, email, password);
-                                        navigate("/NyusatsuIchiran");
+                                        navigate("/");
                                       } catch (error) {
                                         alert(error.message);
                                       }
@@ -139,7 +165,7 @@ const UserReg = () => {
                                       try {
                                         //Firebase ver9 compliant (modular)
                                         await createUserWithEmailAndPassword(auth, email, password);
-                                        navigate("/UserReg2");
+                                        navigate("/");
                                       } catch (error) {
                                         alert(error.message);
                                       }
@@ -152,6 +178,7 @@ const UserReg = () => {
                         </Button>
 
                     </Stack>
+                    
 
                 </Container>
 

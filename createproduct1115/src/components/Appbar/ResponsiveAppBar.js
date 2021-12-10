@@ -1,4 +1,6 @@
 import * as React from 'react';
+import {useState,useEffect} from 'react'
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -23,6 +25,10 @@ const pages = ['内容１', '内容２', '内容３'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
+
+  // isLoginを宣言する
+  const [isLogin, setIsLogin] = useState(false);
+
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -59,6 +65,10 @@ const ResponsiveAppBar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const navigateLogin = () => {
+    navigate("/Login")
   };
 
   return (
@@ -148,13 +158,20 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
 
-            <Tooltip title="Open settings">
-
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                setting
-              </IconButton>
-
-            </Tooltip>
+              { isLogin
+                ? 
+                  (
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                      Setting
+                    </IconButton>
+                  </Tooltip>
+                  )
+                :
+                (<Button onClick={navigateLogin} variant="contained" color="error" >
+                  ログイン
+                </Button>)
+              }
 
             <Menu
               sx={{ mt: '45px' }}
