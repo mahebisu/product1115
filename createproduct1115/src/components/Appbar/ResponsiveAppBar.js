@@ -168,7 +168,7 @@ const ResponsiveAppBar = () => {
                   </Tooltip>
                   )
                 :
-                (<Button onClick={navigateLogin} variant="contained" color="error" >
+                (<Button onClick={navigateLogin} variant="contained" color="success" >
                   ログイン
                 </Button>)
               }
