@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Stack, TextField,Typography } from "@mui/material";
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 
 // タブを作成するためにimportする
@@ -57,7 +57,7 @@ const BukkenTouroku = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarGyosha />
 
             {/* タブ部分 */}
                 <Box sx={{ width: '100%' }}>

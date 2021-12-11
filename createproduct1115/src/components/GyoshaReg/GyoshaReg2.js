@@ -1,6 +1,6 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography,TextField } from '@mui/material'
 import React,{useState} from 'react'
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -72,7 +72,7 @@ const UserReg = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarGyosha />
 
             <form onSubmit={handleSubmit(onSubmit)}>
 

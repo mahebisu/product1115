@@ -1,6 +1,6 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography} from '@mui/material'
 import React from 'react'
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 // 写真をインポート
 import pic1 from "./top-main.jpg"
@@ -16,7 +16,7 @@ const LandingGyosha = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarGyosha />
 
             <div style={{backgroundImage: `url(${pic1})`,
                 backgroundRepeat: "no-repeat",

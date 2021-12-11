@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
 import { Button, Container, Stack, TextField,Box,Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 import pic2 from "./mappic2.png"
 import Card from '@mui/material/Card';
@@ -80,7 +80,7 @@ const ProjectShosai = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarGyosha />
 
             <h1 style={{textAlign:"center"}}>案件情報詳細</h1>
 
