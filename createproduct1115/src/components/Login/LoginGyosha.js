@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserReg = () => {
 
-    const [isLogin, setIsLogin] = useState(true);
+    const [IsLogin, setIsLogin] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
   
@@ -62,7 +62,7 @@ const UserReg = () => {
             console.log("getvalue",getValuetachi);
 
         // createUserWithEmailAndPasswordでuseStateのemail、password値をそれぞれfirebaseに送る工程
-            // if (isLogin) { 
+            // if (IsLogin) { 
             //     async () => {
             //         try {
             //         //Firebase ver9 compliant (modular)
@@ -151,7 +151,7 @@ const UserReg = () => {
                             style={{margintop:500}}
 
                             onClick={
-                                isLogin
+                                IsLogin
                                   ? async () => {
                                       try {
                                         //Firebase ver9 compliant (modular)

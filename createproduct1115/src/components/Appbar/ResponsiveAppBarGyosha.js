@@ -26,15 +26,15 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const ResponsiveAppBar = () => {
 
-  // isLoginを宣言する
-  const [isLogin, setIsLogin] = useState(false);
+  // IsLoginを宣言する
+  const [IsLogin, setIsLogin] = useState(false);
 
   //   ここがログインできてるかどうか処理
     useEffect(() => {
       //Firebase ver9 compliant (modular)
       const unSub = onAuthStateChanged(auth, (user) => {
           console.log(user, "user情報");
-          // authにuser情報があれば、isLoginをtrue
+          // authにuser情報があれば、IsLoginをtrue
           user && setIsLogin(true);
           });
       return () => unSub();
@@ -170,7 +170,7 @@ const ResponsiveAppBar = () => {
 
           <Box sx={{ flexGrow: 0 }}>
 
-              { isLogin
+              { IsLogin
                 ? 
                   (
                   <Tooltip title="Open settings">

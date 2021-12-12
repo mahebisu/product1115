@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 
 const UserReg = () => {
 
-    const [isLogin, setIsLogin] = useState(false);
+    const [IsLogin, setIsLogin] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -111,7 +111,7 @@ const UserReg = () => {
                             style={{margintop:500}}
 
                             onClick={
-                                isLogin
+                                IsLogin
                                   ? async () => {
                                       try {
                                         //Firebase ver9 compliant (modular)
