@@ -9,10 +9,15 @@ import { useNavigate } from "react-router-dom";
 // ログイン機能（講義からコピペ）
     import { auth } from "../../firebase";
     import {
-    onAuthStateChanged,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
+        onAuthStateChanged,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
     } from "firebase/auth";
+
+// firebaseのデータベース関連
+    import { collection, query, onSnapshot, addDoc } from "firebase/firestore";
+    import { db} from "../../firebase";
+    
 
 
 
@@ -21,6 +26,49 @@ const UserReg = () => {
     const [IsLogin, setIsLogin] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    // useStateでfirebaseから読み込む、dataをデフォルトで定義  
+        const [data, setData] = useState(
+            [{
+                EmailNakoudo: "",
+                PassNakoudo: "",
+                NameNakoudo: "",
+                AddressNakoudo: "",
+                PhoneNakoudo: "",
+                NakoudoBirthYear: "",
+                NakoudoBirthMonth: "",
+                NakoudoBirthDay: ""
+            }]
+        );
+
+    // useEffectでquery,collectionからデータを読み込む
+        useEffect(() => {
+            // query=コレクション（firebaseの箱のこと）の指定をする
+            const q = query(collection(db,"user"));
+
+            const unsub = onSnapshot(q, (querySnapshot) => {
+
+                setData(
+                    querySnapshot.docs.map((doc) => (
+                        {
+                            EmailNakoudo: doc.data().EmailNakoudo,
+                            PassNakoudo: doc.data().PassNakoudo,
+                            NameNakoudo: doc.data().NameNakoudo,
+                            AddressNakoudo: doc.data().AddressNakoudo,
+                            PhoneNakoudo: doc.data().PhoneNakoudo,
+                            NakoudoBirthYear: doc.data().NakoudoBirthYear,
+                            NakoudoBirthMonth: doc.data().NakoudoBirthMonth,
+                            NakoudoBirthDay: doc.data().NakoudoBirthDay
+                        }
+                    ))
+                );
+
+            });
+            
+            return () => unsub();
+
+        }, [])
+
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
     const {
@@ -31,8 +79,6 @@ const UserReg = () => {
         watch,
         reset
     } = useForm();
-
-
 
     // navigateを宣言
     let navigate = useNavigate();
@@ -63,7 +109,6 @@ const UserReg = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
 
                 <Container maxWidth="md" sx={{ pt: 5 }}>
-
                     
                     <Stack spacing={5}>
 
@@ -143,12 +188,29 @@ const UserReg = () => {
 
             </form>
 
-            <footer>
-                <div  sx={{margin:"1000 auto 1000"
-                        }}>
-                    footer
-                </div>
-            </footer>
+            <section style={{
+                display: 'flex',
+                justifyContent: 'space-between,center',
+                width: '95%',
+                margin: 'auto'
+            }}>
+                {/* dataをmapで表示 */}
+                {data.map((item,index) => (
+                    // 多要素は１つのdiv等で囲う
+                    <div key={index}>
+                        <div>{index}</div>
+                        <div>{item.EmailNakoudo}</div>
+                        <div>{item.PassNakoudo}</div>
+                        <div>{item.NameNakoudo}</div>
+                        <div>{item.AddressNakoudo}</div>
+                        <div>{item.PhoneNakoudo}</div>
+                        <div>{item.NakoudoBirthYear}</div>
+                        <div>{item.NakoudoBirthMonth}</div>
+                        <div>{item.NakoudoBirthDay}</div>
+                    </div>
+                ))}
+            </section>
+
 
         </div>
 
