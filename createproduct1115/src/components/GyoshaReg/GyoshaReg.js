@@ -6,9 +6,20 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 
-// 写真をインポート
+// ログイン機能（講義からコピペ）
+    import { auth } from "../../firebase";
+    import {
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    } from "firebase/auth";
 
 const UserReg = () => {
+
+    const [isLogin, setIsLogin] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
     const {
@@ -84,6 +95,9 @@ const UserReg = () => {
                             message: "メールアドレス（@を入れて5字以上）を入力してください"
                             })}
                             error={"EmailGyosha" in errors}
+
+                            onChange={(e) => setEmail(e.target.value)}
+
                         />
 
 
@@ -96,18 +110,43 @@ const UserReg = () => {
                                 message: "設定するパスワードを6文字以上で入力してください"
                             })}
                             error={"PassGyosha" in errors}
+
+                            onChange={(e) => setPassword(e.target.value)}
+
                         />
 
                         <hr/>
 
                         <Button
-                            onClick={onSubmit}
                             color="success"
                             variant="contained"
                             size="large"
                             type="submit"
                             fullWidth
                             style={{margintop:500}}
+
+                            onClick={
+                                isLogin
+                                  ? async () => {
+                                      try {
+                                        //Firebase ver9 compliant (modular)
+                                        await signInWithEmailAndPassword(auth, email, password);
+                                        navigate("/ProjectIchiran");
+                                      } catch (error) {
+                                        alert(error.message);
+                                      }
+                                    }
+                                  : async () => {
+                                      try {
+                                        //Firebase ver9 compliant (modular)
+                                        await createUserWithEmailAndPassword(auth, email, password);
+                                        navigate("/GyoshaReg2");
+                                      } catch (error) {
+                                        alert(error.message);
+                                      }
+                                    }
+                              }
+
                         >
                                 業者登録
                         </Button>
