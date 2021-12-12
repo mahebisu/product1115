@@ -15,17 +15,15 @@ import { useNavigate } from "react-router-dom";
     } from "firebase/auth";
 
 // firebaseのデータベース関連
-    import { collection, query, onSnapshot, addDoc } from "firebase/firestore";
+    import { collection, query, onSnapshot, addDoc,serverTimestamp } from "firebase/firestore";
     import { db} from "../../firebase";
-    
-
 
 
 const UserReg = () => {
 
     const [IsLogin, setIsLogin] = useState(false);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [EmailNakoudo, setEmailNakoudo] = useState("");
+    const [PassNakoudo, setPassNakoudo] = useState("");
 
     // useStateでfirebaseから読み込む、dataをデフォルトで定義  
         const [data, setData] = useState(
@@ -71,33 +69,79 @@ const UserReg = () => {
 
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isValid, isDirty, isSubmitting, touchedFields, submitCount },
-        getValues,
-        watch,
-        reset
-    } = useForm();
+        const {
+            register,
+            handleSubmit,
+            formState: { errors, isValid, isDirty, isSubmitting, touchedFields, submitCount },
+            getValues,
+            watch,
+            reset
+        } = useForm();
 
     // navigateを宣言
     let navigate = useNavigate();
 
+
     // フォーム送信時の処理
     const onSubmit = () => {
-        // バリデーションチェックOK！なときに行う処理を追加
+        // バリデーションチェックで行う処理⇒今後対応
             console.log("isDirty>",isDirty);
             console.log("isValid>",isValid);
             console.log(submitCount);
-            console.log("メールとパスは>",email,password);
+            console.log("メールとパスは>",EmailNakoudo,PassNakoudo);
+        // errorsを表示させる
+            console.log("errors>",errors);
+
+        // formで入力した値をgetValuesで取得する
+            let getValuetachi = getValues();
+            console.log("getValuetachi>",getValuetachi);
+
+        // ログインのfunctionを定義
+            async function SigninFunction() {
+                try {
+                    //Firebase ver9 compliant (modular)
+                    // authにemailとpassを確認
+                    await signInWithEmailAndPassword(auth, EmailNakoudo, PassNakoudo);
+
+                    navigate("/NyusatsuIchiran");
+                } catch (error) {
+                    alert(error.message);
+                }
+            };
+
+        // User登録のfunctionを定義
+            async function CreateUserFunction() {
+                try {
+                    //Firebase ver9 compliant (modular)
+                    // authにemailとpassを登録
+                        await createUserWithEmailAndPassword(auth, EmailNakoudo, PassNakoudo);
+                    
+                    //Firebase ver9 compliant
+                    // firebaseに新規でデータ追加する
+                        addDoc(collection(db, "user"), {
+                            EmailNakoudo: getValuetachi.EmailNakoudo,
+                            PassNakoudo: getValuetachi.PassNakoudo,
+                            RegTimestamp: serverTimestamp(),
+                        });
+
+                    navigate("/UserReg2");
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
+
+
+        
+        // authでcreateUserWithEmailAndPasswordをする
+        // 同時にdbにuser情報を登録する
+            if(IsLogin){
+                SigninFunction();
+            }else{
+                CreateUserFunction();
+            };
 
     };
 
-    // formで入力した値をgetValuesで取得する
-        const getValuetachi = getValues();
-
-    // errorsを表示させる
-        console.log("errors>",errors);
 
 
     return (
@@ -128,7 +172,7 @@ const UserReg = () => {
                             })}
                             error={"EmailNakoudo" in errors}
 
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => setEmailNakoudo(e.target.value)}
                         />
 
 
@@ -142,7 +186,7 @@ const UserReg = () => {
                             })}
                             error={"EmailNakoudo" in errors}
 
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setPassNakoudo(e.target.value)}
                         />
 
                         <hr/>
@@ -155,27 +199,27 @@ const UserReg = () => {
                             fullWidth
                             style={{margintop:500}}
 
-                            onClick={
-                                IsLogin
-                                  ? async () => {
-                                      try {
-                                        //Firebase ver9 compliant (modular)
-                                        await signInWithEmailAndPassword(auth, email, password);
-                                        navigate("/NyusatsuIchiran");
-                                      } catch (error) {
-                                        alert(error.message);
-                                      }
-                                    }
-                                  : async () => {
-                                      try {
-                                        //Firebase ver9 compliant (modular)
-                                        await createUserWithEmailAndPassword(auth, email, password);
-                                        navigate("/UserReg2");
-                                      } catch (error) {
-                                        alert(error.message);
-                                      }
-                                    }
-                              }
+                            // onClick={
+                            //     IsLogin
+                            //       ? async () => {
+                            //           try {
+                            //             //Firebase ver9 compliant (modular)
+                            //             await signInWithEmailAndPassword(auth, email, password);
+                            //             navigate("/NyusatsuIchiran");
+                            //           } catch (error) {
+                            //             alert(error.message);
+                            //           }
+                            //         }
+                            //       : async () => {
+                            //           try {
+                            //             //Firebase ver9 compliant (modular)
+                            //             await createUserWithEmailAndPassword(auth, email, password);
+                            //             navigate("/UserReg2");
+                            //           } catch (error) {
+                            //             alert(error.message);
+                            //           }
+                            //         }
+                            //   }
                       
                         >
                             新規ユーザー登録
