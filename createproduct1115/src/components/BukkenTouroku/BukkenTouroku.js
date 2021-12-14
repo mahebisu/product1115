@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Button, Container, Stack, TextField,Box,ToggleButton,ToggleButtonGroup,Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
@@ -17,9 +17,124 @@ import InputAdornment from '@mui/material/InputAdornment';
     import Switch from '@mui/material/Switch';
     import FormGroup from '@mui/material/FormGroup';
 
+// ログイン機能（講義からコピペ）
+    import { auth } from "../../firebase";
+    import {
+        onAuthStateChanged,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+    } from "firebase/auth";
+
+// firebaseのデータベース関連
+    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
+    import { db} from "../../firebase";
+
 
 
 const BukkenTouroku = () => {
+
+    // Bukkenshuruiを保持しよう
+        const [BukkenShurui, setBukkenShurui] = useState("Tochi");
+        // radioボタンの値を取得する関数の定義
+            const radioChange = (event) => {
+                setBukkenShurui(event.target.value);
+                console.log(event.target.value)
+            };
+
+    // ToggleButtonGroupを動かすためにコピペ 
+        const [alignment, setAlignment] = React.useState('Tochi');
+        const handleChange = (event, newAlignment) => {
+            setAlignment(newAlignment);
+        };
+    
+    // switchからBukkenShuruiを保持する
+        const [BukkenTeian, setBukkenTeian] = React.useState({
+            Baikyaku: true,
+            Reform: true,
+            Rent: true,
+            Sonota: true
+            });
+        
+        const switchChange = (event) => {
+            setBukkenTeian({
+                ...BukkenTeian,
+                [event.target.name]: event.target.checked,
+            });
+        };
+
+        console.log("BukkenTeian>",BukkenTeian);
+    
+    // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
+        const [Bukkendata, setBukkendata] = useState(
+            [{
+                id:"",
+                BukkenAddress: "",
+                BukkenShurui: "",
+                BukkenTeian: {
+                        Baikyaku: true,
+                        Reform: true,
+                        Rent: true,
+                        Sonota: true
+                    },
+                NameJinushi: "",
+                EmailJinushi: "",
+                CommentTo: "",
+                KibouFee: "",
+                RegTimestamp:"",
+            }]
+        );
+    
+    // 物件データ内に、登録した仲人のIDを登録したいから
+        const [EmailNakoudo, setEmailNakoudo] = useState("");
+        const [NakoudoId, setNakoudoId] = useState("");
+        console.log("EmailNakoudo>",EmailNakoudo);
+        console.log("NakoudoId>",NakoudoId);
+
+    // useEffectを使ってデータを取得する
+        useEffect(() => {
+
+            // まずログインしているuserのメールアドレスを取得する
+            //Firebase ver9 compliant (modular)
+                const unSub1 = onAuthStateChanged(auth, (user) => {
+
+                    console.log("user情報>",user.email);
+                    // authにuser情報があれば、IsLoginをtrue
+                    user.email && setEmailNakoudo(user.email);
+
+                });
+
+
+            return () => {
+                unSub1();
+            };
+        }, []);
+
+        // useEffectを使ってデータを取得する
+        useEffect(() => {
+
+            // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
+            //Firebase ver9 compliant (modular)
+                const q = query(collection(db, "user"), orderBy("RegTimestamp", "desc"));
+                const unSub2 = onSnapshot(q, (snapshot) => {
+
+                    snapshot.docs.map((doc,index) => {
+
+                        if(doc.data().EmailNakoudo == EmailNakoudo){
+                            setNakoudoId(doc.id);
+                            console.log("ログイン中のidをNakoudoIdにsetした",doc.id);
+                        };
+
+                        console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
+
+                    })
+
+                });
+
+            return () => {
+                unSub2();
+            };
+        }, [EmailNakoudo]);
+
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
         const {
@@ -37,40 +152,27 @@ const BukkenTouroku = () => {
     // フォーム送信時の処理
     const onSubmit = (data) => {
         // バリデーションチェックOK！なときに行う処理を追加
-        console.log("isDirty>",isDirty);
-        console.log("isValid>",isValid);
-        console.log(submitCount);
+            console.log("isDirty>",isDirty);
+            console.log("isValid>",isValid);
+            console.log(submitCount);
 
-        // getValuesの値がエラーなく入れられているかのチェック、inValid?
+        // errorsを表示させる
+            console.log("errors>",errors);
 
-        
+        // formで入力した値をgetValuesで取得する
+            const getValuetachi = getValues();
+            console.log(getValuetachi);
+
         // getValuesの値をそれぞれfirebaseに送る工程
 
 
-
         // 次のページに遷移する
-        navigate("/NyusatsuIchiran");
+            navigate("/NyusatsuIchiran");
+
     };
 
-    const [Bukkenshurui, setBukkenshurui] = useState("Tochi");
-    // radioボタンの値を取得する関数の定義
-        const radioChange = (event) => {
-            setBukkenshurui(event.target.value);
-            console.log(event.target.value)
-        };
 
-    // ToggleButtonGroupを動かすためにコピペ 
-    const [alignment, setAlignment] = React.useState('Tochi');
-    const handleChange = (event, newAlignment) => {
-        setAlignment(newAlignment);
-    };
 
-    // formで入力した値をgetValuesで取得する
-        const getValuetachi = getValues();
-        console.log(getValuetachi);
-
-    // errorsを表示させる
-        console.log("errors>",errors);
 
     return (
 
@@ -137,10 +239,10 @@ const BukkenTouroku = () => {
 
                             {/* switchのコピペ */}
                             <FormGroup>
-                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="売却希望" />
-                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="建替え・リフォーム"  />
-                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="貸出し"  />
-                                <FormControlLabel control={<Switch defaultChecked color="success" name="Baikyaku"/>} label="その他有効活用"  />
+                                <FormControlLabel control={<Switch defaultChecked onChange={switchChange} color="success" name="Baikyaku"/>} label="売却希望" />
+                                <FormControlLabel control={<Switch defaultChecked onChange={switchChange} color="success" name="Reform"/>} label="建替え・リフォーム"  />
+                                <FormControlLabel control={<Switch defaultChecked onChange={switchChange} color="success" name="Rent"/>} label="貸出し"  />
+                                <FormControlLabel control={<Switch defaultChecked onChange={switchChange} color="success" name="Sonota"/>} label="その他有効活用"  />
                             </FormGroup>
                         </Stack>
 

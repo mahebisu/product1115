@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
     import Tabs from '@mui/material/Tabs';
     import Tab from '@mui/material/Tab';
     import Box from '@mui/material/Box';
-import Nyusatsuchu from './Nyusatsuchu';
+    import Nyusatsuchu from './Nyusatsuchu';
 
 // タブを動かすためにファンクションを定義、コピペ
     function TabPanel(props) {
