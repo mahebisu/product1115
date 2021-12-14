@@ -35,18 +35,19 @@ const BukkenTouroku = () => {
 
     // Bukkenshuruiを保持しよう
         const [BukkenShurui, setBukkenShurui] = useState("Tochi");
-        // radioボタンの値を取得する関数の定義
-            const toggleChange = (event) => {
+    // ToggleButtonGroupを動かすためにコピペ 
+        const [alignment, setAlignment] = React.useState('Tochi');
+    // radioボタンの値を取得する関数の定義
+            const toggleChange = (event,newAlignment) => {
+                
+                // ボタンを選択したら動かす
+                setAlignment(newAlignment);
+
                 setBukkenShurui(event.target.value);
                 console.log(event.target.value)
             };
         console.log("BukkenShurui>",BukkenShurui);
 
-    // ToggleButtonGroupを動かすためにコピペ 
-        const [alignment, setAlignment] = React.useState('Tochi');
-        const handleChange = (event, newAlignment) => {
-            setAlignment(newAlignment);
-        };
     
     // switchからBukkenShuruiを保持する
         const [BukkenTeian, setBukkenTeian] = React.useState({
