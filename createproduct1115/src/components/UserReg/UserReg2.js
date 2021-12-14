@@ -62,22 +62,19 @@ const UserReg2 = () => {
             //Firebase ver9 compliant (modular)
                 const unSub1 = onAuthStateChanged(auth, (user) => {
 
-                    new Promise((resolve) => {//Promise型を返す
-
-                        function procedure() {
-
-                            console.log("user情報>",user.email);
-                            // authにuser情報があれば、IsLoginをtrue
-                            user.email && setEmailNakoudo(user.email);
-                            resolve();
-                            
-                        }
-                    
-                        setTimeout(procedure, 1000);
-                    
-                    });
+                    console.log("user情報>",user.email);
+                    // authにuser情報があれば、IsLoginをtrue
+                    user.email && setEmailNakoudo(user.email);
 
                 });
+
+            return () => {
+                unSub1();
+            };
+        }, []);
+
+        // useEffectを使ってデータを取得する
+        useEffect(() => {
 
             // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
             //Firebase ver9 compliant (modular)
@@ -110,15 +107,10 @@ const UserReg2 = () => {
 
                 });
 
-                async function unSub3() {
-                    await unSub1();
-                    unSub2();
-                }
-
             return () => {
-                unSub3();
+                unSub2();
             };
-        }, []);
+        }, [EmailNakoudo]);
 
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
