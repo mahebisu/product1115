@@ -36,10 +36,11 @@ const BukkenTouroku = () => {
     // Bukkenshuruiを保持しよう
         const [BukkenShurui, setBukkenShurui] = useState("Tochi");
         // radioボタンの値を取得する関数の定義
-            const radioChange = (event) => {
+            const toggleChange = (event) => {
                 setBukkenShurui(event.target.value);
                 console.log(event.target.value)
             };
+        console.log("BukkenShurui>",BukkenShurui);
 
     // ToggleButtonGroupを動かすためにコピペ 
         const [alignment, setAlignment] = React.useState('Tochi');
@@ -90,7 +91,7 @@ const BukkenTouroku = () => {
         console.log("EmailNakoudo>",EmailNakoudo);
         console.log("NakoudoId>",NakoudoId);
 
-    // useEffectを使ってデータを取得する
+    // useEffectを使ってuser.emailデータを取得する
         useEffect(() => {
 
             // まずログインしているuserのメールアドレスを取得する
@@ -109,7 +110,7 @@ const BukkenTouroku = () => {
             };
         }, []);
 
-        // useEffectを使ってデータを取得する
+    // useEffectを使ってuser.emailからuser.idデータを取得する
         useEffect(() => {
 
             // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
@@ -147,31 +148,55 @@ const BukkenTouroku = () => {
         } = useForm();
 
     // navigateを宣言
-    let navigate = useNavigate();
+        let navigate = useNavigate();
 
     // フォーム送信時の処理
-    const onSubmit = (data) => {
-        // バリデーションチェックOK！なときに行う処理を追加
-            console.log("isDirty>",isDirty);
-            console.log("isValid>",isValid);
-            console.log(submitCount);
+        const onSubmit = (data) => {
+            // バリデーションチェックOK！なときに行う処理を追加
+                console.log("isDirty>",isDirty);
+                console.log("isValid>",isValid);
+                console.log(submitCount);
 
-        // errorsを表示させる
-            console.log("errors>",errors);
+            // errorsを表示させる
+                console.log("errors>",errors);
 
-        // formで入力した値をgetValuesで取得する
-            const getValuetachi = getValues();
-            console.log(getValuetachi);
+            // formで入力した値をgetValuesで取得する
+                const getValuetachi = getValues();
+                console.log(getValuetachi);
 
-        // getValuesの値をそれぞれfirebaseに送る工程
+            // User登録のfunctionを定義
+            async function CreateProjectFunction() {
+                try {
 
+                    //Firebase ver9 compliant
+                    // firebaseのログイン中のuserデータにデータ追加する
+                        addDoc(collection(db, "project"),{
+                            NakoudoId: NakoudoId,
+                            BukkenAddress: getValuetachi.BukkenAddress,
+                            BukkenShurui: BukkenShurui,
+                            BukkenTeian: {
+                                    Baikyaku: BukkenTeian.Baikyaku,
+                                    Reform: BukkenTeian.Reform,
+                                    Rent: BukkenTeian.Rent,
+                                    Sonota: BukkenTeian.Sonota
+                                },
+                            NameJinushi: getValuetachi.NameJinushi,
+                            EmailJinushi: getValuetachi.EmailJinushi,
+                            CommentTo: getValuetachi.CommentTo,
+                            KibouFee: getValuetachi.KibouFee,
+                            RegTimestamp: serverTimestamp(),
+                        });
 
-        // 次のページに遷移する
-            navigate("/NyusatsuIchiran");
+                    navigate("/NyusatsuIchiran");
 
-    };
+                } catch (error) {
+                    alert(error.message);
+                }
+            }
 
+            CreateProjectFunction();
 
+        };
 
 
     return (
@@ -222,7 +247,7 @@ const BukkenTouroku = () => {
                                 color="success"
                                 value={alignment}
                                 exclusive
-                                onChange={handleChange}
+                                onChange={toggleChange}
                                 sx={{alignItems:"center"}}
                             >
                                 <ToggleButton value="Tochi">土地だけ</ToggleButton>
