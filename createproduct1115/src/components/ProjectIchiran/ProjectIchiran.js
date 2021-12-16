@@ -91,17 +91,8 @@ const BukkenTouroku = () => {
                         その他有効活用
                     </TabPanel>
 
-
                 </Box>
             {/* タブ部分以上 */}
-
-            <Typography variant="h4" color="text.success"
-                sx={{textAlign:"center",pt:3}}
-            >
-                プロジェクト一覧
-            </Typography>
-
-
 
         </div>
     )

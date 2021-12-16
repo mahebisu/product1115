@@ -1,8 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Button, Container, Stack, TextField,Box,Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import pic2 from "./mappic2.png"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -16,7 +16,124 @@ import CardContent from '@mui/material/CardContent';
     import FormLabel from '@mui/material/FormLabel';
 import { width } from '@mui/system';
 
+// ログイン機能（講義からコピペ）
+    import { auth } from "../../firebase";
+    import {
+        onAuthStateChanged,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+    } from "firebase/auth";
+
+// firebaseのデータベース関連
+    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
+    import { db } from "../../firebase";
+
+
 const ProjectShosai = () => {
+
+    // ProjectBaikyakuから?id=のprojectidをゲット
+        const urlidquery = new URLSearchParams(useLocation().search);
+        const ProjectId = urlidquery.get("id");
+        console.log("ProjectId>",ProjectId);
+
+    // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
+        const [Bukkendata, setBukkendata] = useState(
+            [{
+                id: "",
+                BukkenAddress: "",
+                BukkenShurui: "",
+                BukkenTeian: {
+                        Baikyaku: true,
+                        Reform: true,
+                        Rent: true,
+                        Sonota: true
+                    },
+                NameJinushi: "",
+                EmailJinushi: "",
+                CommentTo: "",
+                KibouFee: "",
+                RegTimestamp:"",
+                NakoudoId: "",
+            }]
+        );
+
+        const [Nakoudoname, setNakoudoname] = useState("");
+        console.log("NameNakoudo>",Nakoudoname);
+
+    // useEffectを使ってdb>projectのデータを取得する
+        useEffect(() => {
+
+            //Firebase ver9 compliant (modular)
+                const q = query(doc(db, "project", ProjectId));
+                const unSub = onSnapshot(q, (snapshot) => {
+
+                    console.log("snapshot>",snapshot.data());
+
+                    // firebaseのtimestampを文字列に変換する
+                        let formatTime = `
+                            ${snapshot.data().RegTimestamp.toDate().getFullYear()}年
+                            ${snapshot.data().RegTimestamp.toDate().getMonth()+1}月
+                            ${snapshot.data().RegTimestamp.toDate().getDate()}日
+                        `
+                    console.log("formatTime>",formatTime);
+
+                    let BukkenShuruiSent = "";
+                    if (snapshot.data().BukkenShurui == "Kodate"){
+                        BukkenShuruiSent = "建物＋土地";
+                    } else if(snapshot.data().BukkenShurui == "Tochi"){
+                        BukkenShuruiSent = "土地のみ";
+                    } else {
+                        BukkenShuruiSent = "分譲マンション";
+                    }
+
+                    console.log("BukkenShuruiSent>",BukkenShuruiSent);
+                
+
+                    setBukkendata({
+                        id: ProjectId,
+                        BukkenAddress: snapshot.data().BukkenAddress,
+                        BukkenShurui: snapshot.data().BukkenShurui,
+                        BukkenTeian: {
+                                Baikyaku: snapshot.data().BukkenTeian.Baikyaku,
+                                Reform: snapshot.data().BukkenTeian.Reform,
+                                Rent: snapshot.data().BukkenTeian.Rent,
+                                Sonota: snapshot.data().BukkenTeian.Sonota
+                            },
+                        NameJinushi: snapshot.data().NameJinushi,
+                        EmailJinushi: snapshot.data().EmailJinushi,
+                        CommentTo: snapshot.data().CommentTo,
+                        KibouFee: snapshot.data().KibouFee,
+                        RegTimestamp: formatTime,
+                        BukkenShuruiSent: BukkenShuruiSent,
+                        NakoudoId: snapshot.data().NakoudoId
+                    })
+
+                });
+
+            return () => {
+                unSub();
+                console.log("Bukkendata>",Bukkendata);
+                console.log("NakoudoId>",Bukkendata.NakoudoId);
+            };
+        }, []);
+
+
+        // useEffectを使ってNakoudoIdからNameNakoudoのデータを取得する
+            useEffect(() => {
+
+                //Firebase ver9 compliant (modular)
+                    const q2 = query(doc(db, "user", `${Bukkendata.NakoudoId}`));
+                    const unSub2 = onSnapshot(q2, (snapshot) => {
+
+                        setNakoudoname(snapshot.data().NameNakoudo);
+    
+                    });
+    
+                    return () => {
+                        unSub2();
+                    };
+            }, [Bukkendata.NakoudoId]);
+    
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
         const {
@@ -28,6 +145,7 @@ const ProjectShosai = () => {
             reset
         } = useForm();
 
+
     // フォーム送信時の処理
     const onSubmit = (data) => {
         // バリデーションチェックOK！なときに行う処理を追加
@@ -37,7 +155,13 @@ const ProjectShosai = () => {
 
         // getValuesの値がエラーなく入れられているかのチェック、inValid?
 
-        
+        // formで入力した値をgetValuesで取得する
+            const getValuetachi = getValues();
+            console.log(getValuetachi);
+
+        // errorsを表示させる
+            console.log("errors>",errors);
+    
         // getValuesの値をそれぞれfirebaseに送る工程
 
 
@@ -48,32 +172,6 @@ const ProjectShosai = () => {
 
     };
 
-    const [Bukkenshurui, setBukkenshurui] = useState("Tochi");
-    // radioボタンの値を取得する関数の定義
-        const radioChange = (event) => {
-            setBukkenshurui(event.target.value);
-            console.log(event.target.value)
-        };
-
-    // formで入力した値をgetValuesで取得する
-        const getValuetachi = getValues();
-        console.log(getValuetachi);
-
-    // errorsを表示させる
-        console.log("errors>",errors);
-
-    const cardcontain = (
-        <React.Fragment>
-            <CardContent>
-                <Typography variant="h7" color="text.secondary" gutterBottom>
-                    {}
-                </Typography>
-                <Typography variant="h6" component="div">
-                    {}
-                </Typography>
-            </CardContent>
-        </React.Fragment>
-    );
 
     return (
 
@@ -111,7 +209,7 @@ const ProjectShosai = () => {
                                             物件の所在地
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            東京都文京区千石二丁目６－２２
+                                            {Bukkendata.BukkenAddress}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -121,7 +219,7 @@ const ProjectShosai = () => {
                                             物件の種類
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            建物＋土地
+                                            {Bukkendata.BukkenShurui}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -131,7 +229,7 @@ const ProjectShosai = () => {
                                             希望の有効活用
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            売却/貸出/その他有効活用
+                                            {/* {Bukkendata.} */}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -141,7 +239,7 @@ const ProjectShosai = () => {
                                             被紹介者氏名
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            高橋花子
+                                            {Bukkendata.NameJinushi}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -151,7 +249,7 @@ const ProjectShosai = () => {
                                             紹介者氏名
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            山田花子
+                                            {Nakoudoname}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -166,7 +264,7 @@ const ProjectShosai = () => {
                                             物件の大きさ/古さ/検討動機など知っていること
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                            {Bukkendata.CommentTo}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -176,7 +274,7 @@ const ProjectShosai = () => {
                                             希望の紹介料
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            40万円
+                                            {Bukkendata.KibouFee}万円
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -219,7 +317,7 @@ const ProjectShosai = () => {
                             fullWidth
                             style={{margintop:500,width:300}}
                         >
-                            <Link to="/ProjectIchiran"
+                            <Link to="/ProjectNyusatsu"
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
                                 fontSize:"2vw"
