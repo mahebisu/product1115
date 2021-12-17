@@ -161,7 +161,7 @@ const ProjectNyusatsu = () => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <Container maxWidth="lg" sx={{ pt: 5 }}>
+                <Container maxWidth="sm" sx={{ pt: 5 }}>
                     
                     <Stack spacing={3}>
 

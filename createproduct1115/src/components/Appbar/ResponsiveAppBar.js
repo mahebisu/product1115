@@ -7,6 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
+import { Link } from "react-router-dom";
 
 // ⇒@mui/icons-materialインストールした
   import MenuIcon from '@mui/icons-material/Menu';
@@ -21,8 +22,15 @@ import Menu from '@mui/material/Menu';
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
-const pages = ['内容１', '内容２', '内容３'];
+const pages = ['取り組み中', '内容２', '内容３'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+
+const pageslink = [
+  `/NyusatsuIchiran`,
+  `/NyusatsuIchiran`,
+  `/NyusatsuIchiran`
+];
+
 
 const ResponsiveAppBar = () => {
 
@@ -101,7 +109,13 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO予定
+            <Link to={`/NyusatsuIchiran`}
+              style={{textDecoration:"none",
+              color:"#e9fef7",
+              // fontSize:"1.5vw"
+            }}>
+              LOGO予定
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -135,9 +149,17 @@ const ResponsiveAppBar = () => {
               }}
             >
 
-              {pages.map((page) => (
+              {pages.map((page,index) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">
+                    <Link to={pageslink[index]}
+                        style={{textDecoration:"none",
+                        color:"#e9fef7",
+                        // fontSize:"1.5vw"
+                      }}>
+                        {page}
+                    </Link>
+                  </Typography>
                 </MenuItem>
               ))}
 
@@ -151,18 +173,30 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            LOGO予定
+            <Link to={`/NyusatsuIchiran`}
+              style={{textDecoration:"none",
+              color:"#e9fef7",
+              // fontSize:"1.5vw"
+            }}>
+              LOGO予定
+            </Link>
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page,index) => (
 
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                <Link to={pageslink[index]}
+                  style={{textDecoration:"none",
+                  color:"#e9fef7",
+                  // fontSize:"1.5vw"
+                }}>
+                  {page}
+                </Link>
               </Button>
 
             ))}

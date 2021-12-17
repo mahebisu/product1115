@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
     import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
     import { db} from "../../firebase";
 
-const Nyusatsuchu = (props) => {
+const ProjectBaikyaku = (props) => {
 
     // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
         const [Bukkendata, setBukkendata] = useState(
@@ -171,4 +171,4 @@ const Nyusatsuchu = (props) => {
     )
 }
 
-export default Nyusatsuchu
+export default ProjectBaikyaku

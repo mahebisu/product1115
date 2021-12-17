@@ -320,7 +320,7 @@ const ProjectShosai = () => {
                             <Link to="/ProjectIchiran"
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
-                                fontSize:"1vw"
+                                fontSize:"1.5vw"
                             }}>
                                 質問する(対応予定)
                             </Link>
@@ -338,7 +338,7 @@ const ProjectShosai = () => {
                             <Link to={`/ProjectNyusatsu?NakoudoId=${Bukkendata.NakoudoId}&ProjectId=${ProjectId}`}
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
-                                fontSize:"2vw"
+                                fontSize:"1.5vw"
                             }}>
                                 紹介料入札
                             </Link>
