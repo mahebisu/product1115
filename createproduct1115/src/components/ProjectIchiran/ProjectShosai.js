@@ -54,11 +54,14 @@ const ProjectShosai = () => {
                 KibouFee: "",
                 RegTimestamp:"",
                 NakoudoId: "",
+                BukkenShuruiSent: ""
             }]
         );
 
         const [Nakoudoname, setNakoudoname] = useState("");
         console.log("NameNakoudo>",Nakoudoname);
+        const [Teiantext, setTeiantext] = useState("");
+        console.log("Teiantext>",Teiantext);
 
     // useEffectを使ってdb>projectのデータを取得する
         useEffect(() => {
@@ -75,7 +78,6 @@ const ProjectShosai = () => {
                             ${snapshot.data().RegTimestamp.toDate().getMonth()+1}月
                             ${snapshot.data().RegTimestamp.toDate().getDate()}日
                         `
-                    console.log("formatTime>",formatTime);
 
                     let BukkenShuruiSent = "";
                     if (snapshot.data().BukkenShurui == "Kodate"){
@@ -87,7 +89,25 @@ const ProjectShosai = () => {
                     }
 
                     console.log("BukkenShuruiSent>",BukkenShuruiSent);
-                
+
+                    // 提案内容のテキストブロックを作成
+                    let a = "";
+                    let b = "";
+                    let c = "";
+                    let d = ""; 
+                    if(snapshot.data().BukkenTeian.Baikyaku){
+                        a = "売却 ";
+                    }
+                    if(snapshot.data().BukkenTeian.Reform){
+                        b = "建替え（リフォーム） ";
+                    }
+                    if(snapshot.data().BukkenTeian.Rent){
+                        c = "貸出 ";
+                    }
+                    if(snapshot.data().BukkenTeian.Sonota){
+                        d = "その他有効活用 ";
+                    }
+                    setTeiantext(a + b + c + d);
 
                     setBukkendata({
                         id: ProjectId,
@@ -105,7 +125,8 @@ const ProjectShosai = () => {
                         KibouFee: snapshot.data().KibouFee,
                         RegTimestamp: formatTime,
                         BukkenShuruiSent: BukkenShuruiSent,
-                        NakoudoId: snapshot.data().NakoudoId
+                        NakoudoId: snapshot.data().NakoudoId,
+                        BukkenShuruiSent: BukkenShuruiSent
                     })
 
                 });
@@ -116,6 +137,8 @@ const ProjectShosai = () => {
                 console.log("NakoudoId>",Bukkendata.NakoudoId);
             };
         }, []);
+
+        console.log("Bukkendata.BukkenTeian>",Bukkendata.BukkenTeian);
 
 
         // useEffectを使ってNakoudoIdからNameNakoudoのデータを取得する
@@ -168,8 +191,6 @@ const ProjectShosai = () => {
 
         // 次のページに遷移する
 
-
-
     };
 
 
@@ -182,12 +203,9 @@ const ProjectShosai = () => {
 
             <h1 style={{textAlign:"center"}}>案件情報詳細</h1>
 
-            {/* エラーチェックの表示 */}
-            {/* {errors && <div>{errors}</div>} */}
-
             <form onSubmit={handleSubmit(onSubmit)}>
 
-                <Container  sx={{ pt: 5,maxWidth:"100%"}}>
+                <Container  sx={{ pt: 2,maxWidth:"100%"}}>
 
                     <Stack spacing={2}>
 
@@ -219,7 +237,7 @@ const ProjectShosai = () => {
                                             物件の種類
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            {Bukkendata.BukkenShurui}
+                                            {Bukkendata.BukkenShuruiSent}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -229,7 +247,7 @@ const ProjectShosai = () => {
                                             希望の有効活用
                                         </Typography>
                                         <Typography variant="h6" component="div">
-                                            {/* {Bukkendata.} */}
+                                            {Teiantext}
                                         </Typography>
                                     </CardContent>
                                 </Card>
@@ -304,7 +322,7 @@ const ProjectShosai = () => {
                                 color:"#e9fef7",
                                 fontSize:"2vw"
                             }}>
-                                質問する
+                                質問する(対応予定)
                             </Link>
                         </Button>
 
@@ -317,7 +335,7 @@ const ProjectShosai = () => {
                             fullWidth
                             style={{margintop:500,width:300}}
                         >
-                            <Link to="/ProjectNyusatsu"
+                            <Link to={`/ProjectNyusatsu?NakoudoId=${Bukkendata.NakoudoId}&ProjectId=${ProjectId}`}
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
                                 fontSize:"2vw"

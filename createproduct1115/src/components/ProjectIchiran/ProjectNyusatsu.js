@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react'
 import { Button, Container, Stack, TextField,Box,ToggleButton,ToggleButtonGroup,Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
 import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import InputAdornment from '@mui/material/InputAdornment';
 
@@ -22,13 +22,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 const ProjectNyusatsu = () => {
 
-    
+    // ProjectBaikyakuから?id=のprojectidをゲット
+    const urlidquery = new URLSearchParams(useLocation().search);
+    const ProjectId = urlidquery.get("ProjectId");
+    console.log("ProjectId>",ProjectId);
+    const NakoudoId = urlidquery.get("NakoudoId");
+    console.log("NakoudoId>",NakoudoId);
+
     // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
         const [Nyusatsu, setNyusatsu] = useState(
             [{
-                NakoudoId: "xx",
+                NakoudoId: NakoudoId,
                 GyoshaId: "",
-                ProjectId: "yy",
+                ProjectId: ProjectId,
                 CommentToNakoudo:"",
                 NyusatsuFee: "",
                 RegTimestamp:"",
@@ -121,9 +127,9 @@ const ProjectNyusatsu = () => {
                     //Firebase ver9 compliant
                     // firebaseのログイン中のuserデータにデータ追加する
                         addDoc(collection(db, "nyusatsu"),{
-                            NakoudoId: Nyusatsu[0].NakoudoId,
+                            NakoudoId: NakoudoId,
                             GyoshaId: GyoshaId,
-                            ProjectId: Nyusatsu[0].ProjectId,
+                            ProjectId: ProjectId,
                             CommentToNakoudo: getValuetachi.CommentToNakoudo,
                             NyusatsuFee: getValuetachi.NyusatsuFee,
                             RegTimestamp: serverTimestamp(),
