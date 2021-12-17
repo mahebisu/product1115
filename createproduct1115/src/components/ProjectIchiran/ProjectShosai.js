@@ -62,6 +62,8 @@ const ProjectShosai = () => {
         console.log("NameNakoudo>",Nakoudoname);
         const [Teiantext, setTeiantext] = useState("");
         console.log("Teiantext>",Teiantext);
+        const [NakoudoId, setNakoudoId] = useState("");
+        console.log("NakoudoId>",NakoudoId);
 
     // useEffectを使ってdb>projectのデータを取得する
         useEffect(() => {
@@ -129,6 +131,8 @@ const ProjectShosai = () => {
                         BukkenShuruiSent: BukkenShuruiSent
                     })
 
+                    setNakoudoId(snapshot.data().NakoudoId)
+
                 });
 
             return () => {
@@ -138,23 +142,37 @@ const ProjectShosai = () => {
         }, []);
 
         console.log("Bukkendata.BukkenTeian>",Bukkendata.BukkenTeian);
-
+        console.log("NakoudoId>",Bukkendata.NakoudoId);
+        console.log("Bukkendata>",Bukkendata);
 
         // useEffectを使ってNakoudoIdからNameNakoudoのデータを取得する
             useEffect(() => {
 
                 //Firebase ver9 compliant (modular)
-                    const q2 = query(doc(db, "user", `${Bukkendata.NakoudoId}`));
+                    const q2 = query(collection(db, "user"));
                     const unSub2 = onSnapshot(q2, (snapshot) => {
 
-                        setNakoudoname(snapshot.data().NameNakoudo);
-    
+                        snapshot.docs.map((doc) =>{
+
+                            console.log("doc.id>",doc.id,"NakoudoId>",NakoudoId);
+                            console.log("doc.data().NameNakoudo>",doc.data().NameNakoudo);
+
+                            if (doc.id === NakoudoId){
+                                let k = doc.data().NameNakoudo;
+                                setNakoudoname(k);
+                                console.log("doc.id == NakoudoId一致しました");
+                            } else {
+                                console.log("doc.id == NakoudoId一致しませんでした");
+                            }
+
+                        });
+
                     });
     
                     return () => {
                         unSub2();
                     };
-            }, [Bukkendata.NakoudoId]);
+            }, [NakoudoId]);
     
 
     // useformはreact-hook-formのコンポーネント、分割代入してる
@@ -166,7 +184,6 @@ const ProjectShosai = () => {
             watch,
             reset
         } = useForm();
-
 
     // フォーム送信時の処理
     const onSubmit = (data) => {
