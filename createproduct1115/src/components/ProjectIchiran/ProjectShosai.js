@@ -320,7 +320,7 @@ const ProjectShosai = () => {
                             <Link to="/ProjectIchiran"
                                 style={{textDecoration:"none",
                                 color:"#e9fef7",
-                                fontSize:"2vw"
+                                fontSize:"1vw"
                             }}>
                                 質問する(対応予定)
                             </Link>

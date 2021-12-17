@@ -151,12 +151,8 @@ const Nyusatsuchu = (props) => {
                                                         style = {{textDecoration:"none",
                                                         color:"#e9fef7",
                                                         fontSize:"1vw",
-                                                    }}
-
-
-                                                    >
+                                                    }}>
                                                         詳細確認(有料)＋
-                                                        {item.id}
                                                     </Link>
                                                 </Button>
                                             </Stack>
@@ -168,8 +164,8 @@ const Nyusatsuchu = (props) => {
 
                     ))
                 
-                
                 };
+
             </Container>
         </div>
     )

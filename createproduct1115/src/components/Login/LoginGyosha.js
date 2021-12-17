@@ -156,7 +156,7 @@ const UserReg = () => {
                                       try {
                                         //Firebase ver9 compliant (modular)
                                         await signInWithEmailAndPassword(auth, email, password);
-                                        navigate("/NyusatsuIchiran");
+                                        navigate("/ProjectIchiran");
                                       } catch (error) {
                                         alert(error.message);
                                       }
@@ -165,7 +165,7 @@ const UserReg = () => {
                                       try {
                                         //Firebase ver9 compliant (modular)
                                         await createUserWithEmailAndPassword(auth, email, password);
-                                        navigate("/NyusatsuIchiran");
+                                        navigate("/ProjectIchiran");
                                       } catch (error) {
                                         alert(error.message);
                                       }
