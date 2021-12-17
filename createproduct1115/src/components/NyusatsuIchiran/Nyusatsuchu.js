@@ -98,7 +98,7 @@ const Nyusatsuchu = (props) => {
 
             // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
             //Firebase ver9 compliant (modular)
-                const q = query(collection(db, "gyosha"), orderBy("RegTimestamp", "desc"));
+                const q = query(collection(db, "user"));
                 const unSub2 = onSnapshot(q, (snapshot) => {
 
                     snapshot.docs.map((doc,index) => {
@@ -137,30 +137,19 @@ const Nyusatsuchu = (props) => {
             // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
             //Firebase ver9 compliant (modular)
                 const q = query(collection(db, "nyusatsu"), orderBy("RegTimestamp", "desc"));
+
                 const unSub3 = onSnapshot(q, (snapshot) => {
 
-                    snapshot.docs.map((doc,index) => {
-
-                        if (doc.data().NakoudoId == NakoudoId){
-
-                            // firebaseのtimestampを文字列に変換する
-                                let formatTime = `
-                                    ${snapshot.data().RegTimestamp.toDate().getFullYear()}年
-                                    ${snapshot.data().RegTimestamp.toDate().getMonth()+1}月
-                                    ${snapshot.data().RegTimestamp.toDate().getDate()}日
-                                `
-
-                            setNyusatsudata({
-                                NakoudoId: NakoudoId,
-                                GyoshaId: doc.data().GyoshaId,
-                                ProjectId: doc.data().ProjectId,
-                                CommentToNakoudo:doc.data().CommentToNakoudo,
-                                NyusatsuFee: doc.data().NyusatsuFee,
-                                RegTimestamp: formatTime
-
-                            });
-                        }
-                    })
+                    setNyusatsudata(
+                        snapshot.docs.map((doc) => ({
+                            NakoudoId: NakoudoId,
+                            GyoshaId: doc.data().GyoshaId,
+                            ProjectId: doc.data().ProjectId,
+                            CommentToNakoudo:doc.data().CommentToNakoudo,
+                            NyusatsuFee: doc.data().NyusatsuFee,
+                            RegTimestamp: doc.data().RegTimestamp
+                        }))
+                    )
 
                 });
 
@@ -181,27 +170,27 @@ const Nyusatsuchu = (props) => {
     );
     console.log("Gyoshadata>",Gyoshadata);
 
-    // useEffectを使ってNakoudoIdが一致するNyusatsuデータを取得する
-        useEffect(() => {
+    // // useEffectを使ってGyoshaIdからGyoshaNameデータを取得する
+    //     useEffect(() => {
 
-            // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
-            //Firebase ver9 compliant (modular)
-                const q = query(doc(db, "gyosha",`${Nyusatsudata.GyoshaId}`));
-                const unSub4 = onSnapshot(q, (snapshot) => {
+    //         // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
+    //         //Firebase ver9 compliant (modular)
+    //             const q = query(doc(db, "gyosha",`${Nyusatsudata.GyoshaId}`));
+    //             const unSub4 = onSnapshot(q, (snapshot) => {
 
-                    setGyoshadata({
-                        GyoshaId: snapshot.id,
-                        NameGyosha: snapshot.NameGyosha,
-                        NameGyoshaCompany: snapshot.NameGyoshaCompany,
-                        Gyoshashurui: snapshot.Gyoshashurui,
-                    });
+    //                 setGyoshadata({
+    //                     GyoshaId: snapshot.id,
+    //                     NameGyosha: snapshot.NameGyosha,
+    //                     NameGyoshaCompany: snapshot.NameGyoshaCompany,
+    //                     Gyoshashurui: snapshot.Gyoshashurui,
+    //                 });
 
-                });
+    //             });
 
-            return () => {
-                unSub4();
-            };
-        }, [Nyusatsudata]);
+    //         return () => {
+    //             unSub4();
+    //         };
+    //     }, [Nyusatsudata]);
 
 
     let navigate = useNavigate();
@@ -218,7 +207,7 @@ const Nyusatsuchu = (props) => {
 
                 {/* mapで物件情報の要約情報を登録しよう */}
                 
-                {Nyusatsudata &&
+                {/* {Nyusatsudata &&
                     Nyusatsudata.map((item,index) => (
 
                         <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
@@ -258,7 +247,7 @@ const Nyusatsuchu = (props) => {
                         </Card>
 
                     ))
-                };
+                }; */}
 
 
                 <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
