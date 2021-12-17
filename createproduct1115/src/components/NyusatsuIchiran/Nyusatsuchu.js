@@ -207,7 +207,7 @@ const Nyusatsuchu = (props) => {
 
                 {/* mapで物件情報の要約情報を登録しよう */}
                 
-                {/* {Nyusatsudata &&
+                {Nyusatsudata &&
                     Nyusatsudata.map((item,index) => (
 
                         <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
@@ -225,7 +225,7 @@ const Nyusatsuchu = (props) => {
                                                     <Typography variant="h6" color="text.success">{Gyoshadata.NameGyoshaCompany}</Typography>
                                                 </Stack>
                                                 <div>
-                                                    <Typography variant="h6" color="text.success">{Nyusatsudata.CommentToNakoudo}</Typography>
+                                                    <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
                                                 </div>
 
                                             </Stack>
@@ -233,11 +233,11 @@ const Nyusatsuchu = (props) => {
                                         <div>
                                             <Stack spacing={1}>
                                                 <div>
-                                                    <Chip label={`${Nyusatsudata.Gyoshashurui}`} />
-                                                    <Chip label={`${Nyusatsudata.NyusatsuFee}万円`} variant="outlined" />
+                                                    <Chip label={`${item.Gyoshashurui}`} />
+                                                    <Chip label={`${item.NyusatsuFee}万円`} variant="outlined" />
                                                 </div>
                                                 <div>
-                                                        <Typography variant="h7" color="text.success">{Gyoshadata.RegTimestamp}</Typography>
+                                                        <Typography variant="h7" color="text.success">{`{item.RegTimestamp.toDate().getFullYear()}年`}</Typography>
                                                 </div>
                                             </Stack>
                                         </div>
@@ -247,7 +247,7 @@ const Nyusatsuchu = (props) => {
                         </Card>
 
                     ))
-                }; */}
+                };
 
 
                 <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
