@@ -22,12 +22,12 @@ import { Link } from "react-router-dom";
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
-const pages = ['取り組み中', '内容２', '内容３'];
+const pages = ['取り組み中', '新規物件登録', '内容３'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const pageslink = [
   `/NyusatsuIchiran`,
-  `/NyusatsuIchiran`,
+  `/BukkenTouroku`,
   `/NyusatsuIchiran`
 ];
 

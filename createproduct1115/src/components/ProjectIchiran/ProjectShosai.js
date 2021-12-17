@@ -133,9 +133,8 @@ const ProjectShosai = () => {
 
             return () => {
                 unSub();
-                console.log("Bukkendata>",Bukkendata);
-                console.log("NakoudoId>",Bukkendata.NakoudoId);
-            };
+            }
+
         }, []);
 
         console.log("Bukkendata.BukkenTeian>",Bukkendata.BukkenTeian);
