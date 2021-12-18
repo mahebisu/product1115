@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -12,112 +12,70 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 // firebaseのデータベース関連
-    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
-    import { db} from "../../firebase";
+import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp, orderBy, doc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 // ログイン機能（講義からコピペ）
-    import { auth } from "../../firebase";
-    import {
-        onAuthStateChanged,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-    } from "firebase/auth";
-
-
-
-const cardcontain = (
-    <React.Fragment>
-        <CardActionArea>
-            <CardContent>
-                <div style={{display:"flex",justifyContent:"space-between"}}>
-                    <div>
-                            
-                    </div>
-                    <div>
-                        <Stack spacing={1}>
-                            <Stack direction="row" spacing={1}>
-                                <Typography variant="h6" color="text.success">山田春子</Typography>
-                                <Typography variant="h6" color="text.success">/</Typography>
-                                <Typography variant="h6" color="text.success">株式会社XXXX不動産</Typography>
-                            </Stack>
-                            <div>
-                                <Typography variant="h6" color="text.success">先日はどうもありがとうございました・・・・・</Typography>
-                            </div>
-
-                        </Stack>
-
-                    </div>
-                    <div>
-                        <Stack spacing={1}>
-                            <div>
-                                <Chip label="売却" />
-                                <Chip label="40万円" variant="outlined" />
-                            </div>
-                            <div>
-                                    <Typography variant="h7" color="text.success">２月１７日</Typography>
-                            </div>
-                        </Stack>
-                    </div>
-                </div>
-            </CardContent>
-        </CardActionArea>
-    </React.Fragment>
-); 
-
+import { auth } from "../../firebase";
+import {
+    onAuthStateChanged,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
 
 
 const Nyusatsuchu = (props) => {
 
     // 物件データ内に、登録した仲人のIDを登録したいから
-        const [EmailNakoudo, setEmailNakoudo] = useState("");
-        const [NakoudoId, setNakoudoId] = useState("");
-        console.log("EmailNakoudo>",EmailNakoudo);
-        console.log("NakoudoId>",NakoudoId);
+    const [EmailNakoudo, setEmailNakoudo] = useState("");
+    const [NakoudoId, setNakoudoId] = useState("");
+    console.log("EmailNakoudo>", EmailNakoudo);
+    console.log("NakoudoId>", NakoudoId);
 
 
     // useEffectを使ってuser.emailデータを取得する
-        useEffect(() => {
+    useEffect(() => {
 
-            // まずログインしているuserのメールアドレスを取得する
-            //Firebase ver9 compliant (modular)
-                const unSub1 = onAuthStateChanged(auth, (user) => {
+        // まずログインしているuserのメールアドレスを取得する
+        //Firebase ver9 compliant (modular)
+        const unSub1 = onAuthStateChanged(auth, (user) => {
 
-                    console.log("user情報>",user.email);
-                    // authにuser情報があれば、IsLoginをtrue
-                    user.email && setEmailNakoudo(user.email);
+            console.log("user情報>", user.email);
+            // authにuser情報があれば、IsLoginをtrue
+            user.email && setEmailNakoudo(user.email);
 
-                });
+        });
 
-            return () => {
-                unSub1();
-            };
-        }, []);
+        return () => {
+            unSub1();
+        };
+    }, []);
 
     // useEffectを使ってuser.emailからuser.idデータを取得する
-        useEffect(() => {
+    useEffect(() => {
 
-            // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
-            //Firebase ver9 compliant (modular)
-                const q = query(collection(db, "user"));
-                const unSub2 = onSnapshot(q, (snapshot) => {
+        // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
+        //Firebase ver9 compliant (modular)
+        const q = query(collection(db, "user"));
+        const unSub2 = onSnapshot(q, (snapshot) => {
 
-                    snapshot.docs.map((doc,index) => {
+            snapshot.docs.map((doc, index) => {
 
-                        if(doc.data().EmailNakoudo == EmailNakoudo){
-                            setNakoudoId(doc.id);
-                            console.log("ログイン中のidをNakoudoIdにsetした",doc.id);
-                        };
+                if (doc.data().EmailNakoudo == EmailNakoudo) {
+                    setNakoudoId(doc.id);
+                    console.log("ログイン中のidをNakoudoIdにsetした", doc.id);
+                };
 
-                        console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
+                console.log(index, doc.data().EmailNakoudo, EmailNakoudo);
 
-                    })
+            })
 
-                });
+        });
 
-            return () => {
-                unSub2();
-            };
-        }, [EmailNakoudo]);
+        return () => {
+            unSub2();
+        };
+    }, [EmailNakoudo]);
 
 
     const [Nyusatsudata, setNyusatsudata] = useState(
@@ -125,104 +83,101 @@ const Nyusatsuchu = (props) => {
             NakoudoId: "",
             GyoshaId: "",
             ProjectId: "",
-            CommentToNakoudo:"",
+            CommentToNakoudo: "",
             NyusatsuFee: "",
-            RegTimestamp:"",
+            RegTimestamp: "",
+            NameGyosha: "",
+            NameGyoshaCompany: "",
+            Gyoshashurui: ""
+
         }]
     );
 
     // useEffectを使ってNakoudoIdが一致するNyusatsuデータを取得する
         useEffect(() => {
 
-            // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
             //Firebase ver9 compliant (modular)
-                const q = query(collection(db, "nyusatsu"), orderBy("RegTimestamp", "desc"));
+            const qnyusatsu = query(collection(db, "nyusatsu"), orderBy("RegTimestamp", "desc"));
+            const unSub3 = onSnapshot(qnyusatsu, (snapshot) => {
 
-                const unSub3 = onSnapshot(q, (snapshot) => {
+                setNyusatsudata(
 
-                    setNyusatsudata(
-                        snapshot.docs.map((doc) => ({
+                    snapshot.docs.map((d) => {
+
+                        let qgi = d.data().GyoshaId;
+                        let NameGyoshax =  "a";
+                        let NameGyoshaCompanyx = "a";
+                        let Gyoshashuruix = "a";            
+                        const unSub6 = onSnapshot(doc(db, "gyosha", qgi), (snap) => {
+                            NameGyoshax = snap.data().NameGyosha;
+                            NameGyoshaCompanyx = snap.data().NameGyoshaCompany;
+                            Gyoshashuruix = snap.data().Gyoshashurui;
+                            console.log(NameGyoshax,NameGyoshaCompanyx,Gyoshashuruix);
+                        });
+
+
+                        // console.log("GyoshaInfo>",NameGyoshax,NameGyoshaCompanyx,Gyoshashuruix);
+
+                        return {
                             NakoudoId: NakoudoId,
-                            GyoshaId: doc.data().GyoshaId,
-                            ProjectId: doc.data().ProjectId,
-                            CommentToNakoudo:doc.data().CommentToNakoudo,
-                            NyusatsuFee: doc.data().NyusatsuFee,
-                            RegTimestamp: doc.data().RegTimestamp
-                        }))
-                    )
+                            GyoshaId: d.data().GyoshaId,
+                            ProjectId: d.data().ProjectId,
+                            CommentToNakoudo: d.data().CommentToNakoudo,
+                            NyusatsuFee: d.data().NyusatsuFee,
+                            RegTimestamp: d.data().RegTimestamp,
+                            NameGyosha: NameGyoshax,
+                            NameGyoshaCompany: NameGyoshaCompanyx,
+                            Gyoshashurui: Gyoshashuruix
+                
+                        };
 
-                });
+                    })
+
+                )
+
+            });
 
             return () => {
                 unSub3();
+                console.log("unSub3を実行しました");
             };
         }, [NakoudoId]);
 
-    console.log("Nyusatsudata>",Nyusatsudata);
 
-    const [Gyoshadata, setGyoshadata] = useState(
-        [{
-            NameGyosha: "",
-            NameGyoshaCompany: "",
-            Gyoshashurui:"Baishuu",
-        }]
-
-    );
-    console.log("Gyoshadata>",Gyoshadata);
-
-    // // useEffectを使ってGyoshaIdからGyoshaNameデータを取得する
-    //     useEffect(() => {
-
-    //         // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
-    //         //Firebase ver9 compliant (modular)
-    //             const q = query(doc(db, "gyosha",`${Nyusatsudata.GyoshaId}`));
-    //             const unSub4 = onSnapshot(q, (snapshot) => {
-
-    //                 setGyoshadata({
-    //                     GyoshaId: snapshot.id,
-    //                     NameGyosha: snapshot.NameGyosha,
-    //                     NameGyoshaCompany: snapshot.NameGyoshaCompany,
-    //                     Gyoshashurui: snapshot.Gyoshashurui,
-    //                 });
-
-    //             });
-
-    //         return () => {
-    //             unSub4();
-    //         };
-    //     }, [Nyusatsudata]);
+    console.log("Nyusatsudata>", Nyusatsudata);
+    console.log("Nyusatsudata.GyoshaInfo>", Nyusatsudata[0].NameGyosha);
 
 
     let navigate = useNavigate();
 
-    const onClickCard = (props) =>{
+    const onClickCard = (props) => {
         console.log("クリックしたよ");
         navigate("/NyusatsuShosai")
     };
-    
+
 
     return (
         <div>
-            <Stack spacing={2} sx={{alignItems:"center"}}>
+            <Stack spacing={2} sx={{ alignItems: "center" }}>
 
                 {/* mapで物件情報の要約情報を登録しよう */}
-                
-                {Nyusatsudata &&
-                    Nyusatsudata.map((item,index) => (
 
-                        <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
+                {Nyusatsudata &&
+                    Nyusatsudata.map((item, index) => (
+
+                        <Card variant="outlined" sx={{ maxWidth: "375" }} onClick={onClickCard}>
                             <CardActionArea>
                                 <CardContent>
-                                    <div style={{display:"flex",justifyContent:"space-between"}}>
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div>
-                                                
+
                                         </div>
                                         <div>
                                             <Stack spacing={1}>
                                                 <Stack direction="row" spacing={1}>
-                                                    <Typography variant="h6" color="text.success">{Gyoshadata.NameGyosha}</Typography>
+                                                    <Typography variant="h6" color="text.success">{item.NameGyosha}</Typography>
                                                     <Typography variant="h6" color="text.success">/</Typography>
-                                                    <Typography variant="h6" color="text.success">{Gyoshadata.NameGyoshaCompany}</Typography>
+                                                    <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
                                                 </Stack>
                                                 <div>
                                                     <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
@@ -233,11 +188,11 @@ const Nyusatsuchu = (props) => {
                                         <div>
                                             <Stack spacing={1}>
                                                 <div>
-                                                    <Chip label={`${item.Gyoshashurui}`} />
+                                                    <Chip label={item.CommentToNakoudo} />
                                                     <Chip label={`${item.NyusatsuFee}万円`} variant="outlined" />
                                                 </div>
                                                 <div>
-                                                        <Typography variant="h7" color="text.success">{`{item.RegTimestamp.toDate().getFullYear()}年`}</Typography>
+                                                    <Typography variant="h7" color="text.success">{`{item.RegTimestamp.toDate().getFullYear()}年`}</Typography>
                                                 </div>
                                             </Stack>
                                         </div>
@@ -249,16 +204,6 @@ const Nyusatsuchu = (props) => {
                     ))
                 };
 
-
-                <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
-                   {cardcontain}
-                </Card>
-                <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
-                   {cardcontain}
-                </Card>
-                <Card variant="outlined" sx={{maxWidth:"375"}} onClick={onClickCard}>
-                   {cardcontain}
-                </Card>
             </Stack>
         </div>
     )
