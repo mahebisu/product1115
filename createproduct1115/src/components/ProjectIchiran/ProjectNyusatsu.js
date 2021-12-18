@@ -28,25 +28,17 @@ const ProjectNyusatsu = () => {
     console.log("ProjectId>",ProjectId);
     const NakoudoId = urlidquery.get("NakoudoId");
     console.log("NakoudoId>",NakoudoId);
-
-    // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
-        const [Nyusatsu, setNyusatsu] = useState(
-            [{
-                NakoudoId: NakoudoId,
-                GyoshaId: "",
-                ProjectId: ProjectId,
-                CommentToNakoudo:"",
-                NyusatsuFee: "",
-                RegTimestamp:"",
-            }]
-        );
-        console.log("Nyusatsu.NakoudoId>",Nyusatsu[0].NakoudoId);
     
     // 物件データ内に、登録した仲人のIDを登録したいから
         const [EmailGyosha, setEmailGyosha] = useState("");
-        const [GyoshaId, setGyoshaId] = useState("");
+        const [GyoshaData, setGyoshaData] = useState([{
+            GyoshaId: "",
+            Gyoshashurui: "",
+            NameGyosha: "",
+            NameGyoshaCompany: ""
+        }]);
         console.log("EmailGyosha>",EmailGyosha);
-        console.log("GyoshaId>",GyoshaId);
+        console.log("GyoshaId>",GyoshaData.GyoshaId);
 
     // useEffectを使ってuser.emailデータを取得する
         useEffect(() => {
@@ -77,7 +69,12 @@ const ProjectNyusatsu = () => {
                     snapshot.docs.map((doc,index) => {
 
                         if(doc.data().EmailGyosha == EmailGyosha){
-                            setGyoshaId(doc.id);
+                            setGyoshaData({
+                                GyoshaId: doc.id,
+                                Gyoshashurui: doc.data().Gyoshashurui,
+                                NameGyosha: doc.data().NameGyosha,
+                                NameGyoshaCompany: doc.data().NameGyoshaCompany
+                            });
                             console.log("ログイン中のidをGyoshaIdにsetした",doc.id);
                         };
 
@@ -128,11 +125,14 @@ const ProjectNyusatsu = () => {
                     // firebaseのログイン中のuserデータにデータ追加する
                         addDoc(collection(db, "nyusatsu"),{
                             NakoudoId: NakoudoId,
-                            GyoshaId: GyoshaId,
+                            GyoshaId: GyoshaData.GyoshaId,
                             ProjectId: ProjectId,
                             CommentToNakoudo: getValuetachi.CommentToNakoudo,
                             NyusatsuFee: getValuetachi.NyusatsuFee,
                             RegTimestamp: serverTimestamp(),
+                            Gyoshashurui: GyoshaData.Gyoshashurui,
+                            NameGyosha: GyoshaData.NameGyosha,
+                            NameGyoshaCompany: GyoshaData.NameGyoshaCompany
                         });
 
                     navigate("/NyusatsuIchiran");

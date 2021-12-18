@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 // firebaseのデータベース関連
-import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp, orderBy, doc, where } from "firebase/firestore";
+import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp, orderBy, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 // ログイン機能（講義からコピペ）
@@ -97,42 +97,40 @@ const Nyusatsuchu = (props) => {
         useEffect(() => {
 
             //Firebase ver9 compliant (modular)
-            const qnyusatsu = query(collection(db, "nyusatsu"), where("NakoudoId", "==", NakoudoId ));
+            const qnyusatsu = query(collection(db, "nyusatsu"), orderBy("RegTimestamp", "desc"));
             const unSub3 = onSnapshot(qnyusatsu, (snapshot) => {
 
                 setNyusatsudata(
 
                     snapshot.docs.map((d) => {
 
-                        // firebaseのtimestampを文字列に変換する
-                            let formatTime = `
-                            ${d.data().RegTimestamp.toDate().getFullYear()}年
-                            ${d.data().RegTimestamp.toDate().getMonth() + 1}月
-                            ${d.data().RegTimestamp.toDate().getDate()}日
-                            `
+                        let qgi = d.data().GyoshaId;
+                        let NameGyoshax =  "";
+                        let NameGyoshaCompanyx = "";
+                        let Gyoshashuruix = "";            
+                        const unSub6 = onSnapshot(doc(db, "gyosha", qgi), (snap) => {
+                            NameGyoshax = snap.data().NameGyosha;
+                            NameGyoshaCompanyx = snap.data().NameGyoshaCompany;
+                            Gyoshashuruix = snap.data().Gyoshashurui;
+                            console.log("中>",NameGyoshax,NameGyoshaCompanyx,Gyoshashuruix);
+                        });
 
-                            let GyoshaShuruiSent = "";
-                            if (d.data().Gyoshashurui == "Baishuu") {
-                                GyoshaShuruiSent = "買取";
-                            } else if (d.data().Gyoshashurui == "Reform") {
-                                GyoshaShuruiSent = "建築";
-                            } else if (d.data().Gyoshashurui == "Rent") {
-                                GyoshaShuruiSent  = "賃貸";
-                            }else {
-                                GyoshaShuruiSent = "その他";
-                            }
-                        
-                            return {
-                                NakoudoId: NakoudoId,
-                                GyoshaId: d.data().GyoshaId,
-                                ProjectId: d.data().ProjectId,
-                                CommentToNakoudo: d.data().CommentToNakoudo,
-                                NyusatsuFee: d.data().NyusatsuFee,
-                                RegTimestamp: formatTime,
-                                NameGyosha: d.data().NameGyosha,
-                                NameGyoshaCompany: d.data().NameGyoshaCompany,
-                                Gyoshashurui: GyoshaShuruiSent
-                            };
+
+                        console.log("GyoshaInfo>",NameGyoshax,NameGyoshaCompanyx,Gyoshashuruix);
+
+                        return {
+                            NakoudoId: NakoudoId,
+                            GyoshaId: d.data().GyoshaId,
+                            ProjectId: d.data().ProjectId,
+                            CommentToNakoudo: d.data().CommentToNakoudo,
+                            NyusatsuFee: d.data().NyusatsuFee,
+                            RegTimestamp: d.data().RegTimestamp,
+                            NameGyosha: NameGyoshax,
+                            NameGyoshaCompany: NameGyoshaCompanyx,
+                            Gyoshashurui: Gyoshashuruix
+                
+                        };
+
                     })
 
                 )
@@ -147,6 +145,7 @@ const Nyusatsuchu = (props) => {
 
 
     console.log("Nyusatsudata>", Nyusatsudata);
+    console.log("Nyusatsudata.GyoshaInfo>", Nyusatsudata[0].NameGyosha);
 
 
     let navigate = useNavigate();
@@ -164,27 +163,36 @@ const Nyusatsuchu = (props) => {
                 {/* mapで物件情報の要約情報を登録しよう */}
 
                 {Nyusatsudata &&
-                    Nyusatsudata.map((item,index) => (
+                    Nyusatsudata.map((item, index) => (
 
-                        <Card variant="outlined"  onClick={onClickCard} key={index}>
+                        <Card variant="outlined" sx={{ maxWidth: "375" }} onClick={onClickCard}>
                             <CardActionArea>
                                 <CardContent>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
                                         <div>
-                                            <Stack  spacing={1}>
-                                                <Typography variant="h7" color="text.success">{`${item.NameGyoshaCompany}/`}</Typography>
-                                                <Typography variant="h6" color="text.success">{item.NameGyosha}</Typography>
-                                                <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
+
+                                        </div>
+                                        <div>
+                                            <Stack spacing={1}>
+                                                <Stack direction="row" spacing={1}>
+                                                    <Typography variant="h6" color="text.success">{item.NameGyosha}</Typography>
+                                                    <Typography variant="h6" color="text.success">/</Typography>
+                                                    <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
+                                                </Stack>
+                                                <div>
+                                                    <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
+                                                </div>
+
                                             </Stack>
                                         </div>
-                                        <div style={{paddingLeft:50}}>
+                                        <div>
                                             <Stack spacing={1}>
                                                 <div>
-                                                    <Chip label={item.Gyoshashurui} />
+                                                    <Chip label={item.CommentToNakoudo} />
                                                     <Chip label={`${item.NyusatsuFee}万円`} variant="outlined" />
                                                 </div>
                                                 <div>
-                                                    <Typography variant="h7" color="text.success">{item.RegTimestamp}</Typography>
+                                                    <Typography variant="h7" color="text.success">{`{item.RegTimestamp.toDate().getFullYear()}年`}</Typography>
                                                 </div>
                                             </Stack>
                                         </div>
