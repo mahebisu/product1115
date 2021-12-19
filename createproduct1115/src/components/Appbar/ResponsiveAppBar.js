@@ -9,6 +9,8 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import { Link } from "react-router-dom";
 
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
 // ⇒@mui/icons-materialインストールした
   import MenuIcon from '@mui/icons-material/Menu';
   import Container from '@mui/material/Container';
@@ -209,7 +211,7 @@ const ResponsiveAppBar = () => {
                   (
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      Setting
+                      <Avatar src={AccountCircleIcon} sx={{ bgcolor: "#002c1b" }} />
                     </IconButton>
                   </Tooltip>
                   )

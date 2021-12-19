@@ -22,7 +22,7 @@ const Landing = () => {
 
     return (
         
-        <div>
+        <div style={{backgroundColor:"#e9fef7"}}>
 
             {/* ResponsiveAppBarを挿入 */}
             <ResponsiveAppBar />
