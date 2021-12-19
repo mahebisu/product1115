@@ -9,6 +9,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 import Nyusatsuchu from './Nyusatsuchu';
+import BukkenIchiran from './BukkenIchiran';
 
 // タブを動かすためにファンクションを定義、コピペ
 function TabPanel(props) {
@@ -66,24 +67,22 @@ const BukkenTouroku = () => {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                         <Tab label="入札中" {...a11yProps(0)} />
                         <Tab label="Q&A" {...a11yProps(1)} />
-                        <Tab label="Item Three" {...a11yProps(2)} />
+                        <Tab label="登録物件一覧" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
 
                 <TabPanel value={value} index={0}>
-                    入札中
                     {/* 入札中画面のコンポーネントを挿入 */}
                     <Nyusatsuchu />
                 </TabPanel>
 
                 <TabPanel value={value} index={1}>
-                    Q&A⇒今後実装予定
+                    <p style={{textAlign:"center"}}>Q&A⇒今後実装予定</p>
                     {/* とりあえず入札中画面のコンポーネントを挿入 */}
-                    <Nyusatsuchu />
                 </TabPanel>
 
                 <TabPanel value={value} index={2}>
-                    Item Three
+                    <BukkenIchiran />
                 </TabPanel>
 
             </Box>
