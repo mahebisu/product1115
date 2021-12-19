@@ -80,6 +80,7 @@ const Nyusatsuchu = (props) => {
 
     const [Nyusatsudata, setNyusatsudata] = useState(
         [{
+            NyusatsuId: "",
             NakoudoId: "",
             GyoshaId: "",
             ProjectId: "",
@@ -89,7 +90,6 @@ const Nyusatsuchu = (props) => {
             NameGyosha: "",
             NameGyoshaCompany: "",
             Gyoshashurui: ""
-
         }]
     );
 
@@ -123,6 +123,7 @@ const Nyusatsuchu = (props) => {
                             }
                         
                             return {
+                                NyusatsuId: d.id,
                                 NakoudoId: NakoudoId,
                                 GyoshaId: d.data().GyoshaId,
                                 ProjectId: d.data().ProjectId,
@@ -151,9 +152,9 @@ const Nyusatsuchu = (props) => {
 
     let navigate = useNavigate();
 
-    const onClickCard = (props) => {
-        console.log("クリックしたよ");
-        navigate("/NyusatsuShosai")
+    const onClickCard = (NyusatsuId,e) => {
+        console.log("クリックしたよ>",NyusatsuId,e);
+        navigate(`/NyusatsuShosai?id=${NyusatsuId}`)
     };
 
 
@@ -166,7 +167,7 @@ const Nyusatsuchu = (props) => {
                 {Nyusatsudata &&
                     Nyusatsudata.map((item,index) => (
 
-                        <Card variant="outlined"  onClick={onClickCard} key={index}>
+                        <Card variant="outlined" onClick={(e) => onClickCard(item.NyusatsuId,e)} key={index} value={`${item.NakoudoId}`}>
                             <CardActionArea>
                                 <CardContent>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>

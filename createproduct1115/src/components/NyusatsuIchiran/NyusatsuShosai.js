@@ -13,6 +13,13 @@ import Divider from '@mui/material/Divider';
 
 const NyusatsuShosai = () => {
 
+
+
+
+
+
+    
+
     const cardcontain1 = (
         <React.Fragment>
             <CardActionArea>

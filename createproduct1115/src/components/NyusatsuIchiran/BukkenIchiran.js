@@ -197,7 +197,6 @@ const BukkenIchiran = (props) => {
                                 </CardContent>
                             </CardActionArea>
                         </Card>
-
                     ))
                 };
 
