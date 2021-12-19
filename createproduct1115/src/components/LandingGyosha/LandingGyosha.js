@@ -160,11 +160,16 @@ const LandingGyosha = () => {
 
         </Stack>
 
-        <footer>
-            <div  sx={{margin:"1000 auto 1000"
+        <footer style={{pt:10,textAlign:"right"}}>
+            <p  sx={{pt:"5"}}>
+                    <Link to="/"
+                        style={{textDecoration:"none",
+                        color:"#002c1b",
+                        fontSize:"1vw"
                     }}>
-                footer
-            </div>
+                        一般の紹介者の方はこちら
+                    </Link>
+            </p>
         </footer>
 
     </div>
