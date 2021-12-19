@@ -73,7 +73,7 @@ const ResponsiveAppBar = () => {
 
       try {
         signOut(auth);
-        navigate("/Landing");
+        navigate("/");
       } catch (error) {
         alert(error.message);
       }

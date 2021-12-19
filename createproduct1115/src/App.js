@@ -25,7 +25,7 @@ function App() {
       {/* react-router-domはv6から書き方変わっているので注意 */}
         <BrowserRouter>
           <Routes>
-            <Route exact path="/Landing" element={<Landing />} />
+            <Route exact path="/" element={<Landing />} />
             <Route exact path="/Login" element={<Login />} />
             <Route exact path="/LoginGyosha" element={<LoginGyosha />} />
 
@@ -40,7 +40,6 @@ function App() {
             <Route exact path="/ProjectIchiran" element={<ProjectIchiran />} />
             <Route exact path="/ProjectShosai" element={<ProjectShosai />} />
             <Route exact path="/ProjectNyusatsu" element={<ProjectNyusatsu />} />
-            <Route exact path="/" element={<TitlePage />} />
           </Routes>
         </BrowserRouter>
       
