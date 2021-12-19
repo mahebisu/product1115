@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import { Button, Container, Stack, TextField,Typography } from "@mui/material";
 import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
-import { Link } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import Nyusatsuchu from './Nyusatsuchu';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -11,45 +11,80 @@ import { CardActionArea } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import Divider from '@mui/material/Divider';
 
+// firebaseのデータベース関連
+    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp, orderBy, doc, where } from "firebase/firestore";
+    import { db } from "../../firebase";
+
+
 const NyusatsuShosai = () => {
 
+    // ProjectBaikyakuから?id=のprojectidをゲット
+        const urlidquery = new URLSearchParams(useLocation().search);
+        const NyusatsuId = urlidquery.get("id");
+        console.log("NyusatsuId>", NyusatsuId);
 
-
-
-
-
+    const [Nyusatsudata, setNyusatsudata] = useState(
+        [{
+            NyusatsuId: "",
+            NakoudoId: "",
+            GyoshaId: "",
+            ProjectId: "",
+            CommentToNakoudo: "",
+            NyusatsuFee: "",
+            RegTimestamp: "",
+            NameGyosha: "",
+            NameGyoshaCompany: "",
+            Gyoshashurui: ""
+        }]
+    );
     
+    // useEffectを使ってNakoudoIdが一致するNyusatsuデータを取得する
+    useEffect(() => {
 
-    const cardcontain1 = (
-        <React.Fragment>
-            <CardActionArea>
-                <CardContent>
-                    <Stack spacing={1}>
-                        <Typography variant="h6" color="text.success">2月17日 12:00</Typography>
-                        <Typography variant="h6" color="text.success">
-                            xx不動産の山田春子と申します。この度は情報をご提供いただく機会をいただきまして、ありがとうございます。
+        //Firebase ver9 compliant (modular)
+        const qnyusatsu = doc(db, "nyusatsu", NyusatsuId);
+        const unSub3 = onSnapshot(qnyusatsu, (d) => {
 
-                            本案件に関しては40万円をご提案させていただきます。どうぞよろしくお願いします。
-                        </Typography>
-                    </Stack>
-                </CardContent>
-            </CardActionArea>
-        </React.Fragment>
-    ); 
+            // firebaseのtimestampを文字列に変換する
+                let formatTime = `
+                ${d.data().RegTimestamp.toDate().getFullYear()}年
+                ${d.data().RegTimestamp.toDate().getMonth() + 1}月
+                ${d.data().RegTimestamp.toDate().getDate()}日
+                `
 
-    const cardcontain2 = (
-        <React.Fragment>
-            <CardActionArea>
-                <CardContent>
-                    <Stack direction="row" spacing={1} divider={<Divider orientation="vertical" flexItem />} sx={{justifyContent:"space-between"}}>
-                        <Typography variant="h6" color="text.success">紹介料入札額</Typography>
-                        <Typography variant="h6" color="text.success">40万円</Typography>
-                    </Stack>
-                </CardContent>
-            </CardActionArea>
-        </React.Fragment>
-    ); 
+                let GyoshaShuruiSent = "";
+                if (d.data().Gyoshashurui == "Baishuu") {
+                    GyoshaShuruiSent = "買取";
+                } else if (d.data().Gyoshashurui == "Reform") {
+                    GyoshaShuruiSent = "建築";
+                } else if (d.data().Gyoshashurui == "Rent") {
+                    GyoshaShuruiSent  = "賃貸";
+                }else {
+                    GyoshaShuruiSent = "その他";
+                }
 
+            setNyusatsudata(
+                {
+                    NyusatsuId: d.id,
+                    NakoudoId: d.data().NakoudoId,
+                    GyoshaId: d.data().GyoshaId,
+                    ProjectId: d.data().ProjectId,
+                    CommentToNakoudo: d.data().CommentToNakoudo,
+                    NyusatsuFee: d.data().NyusatsuFee,
+                    RegTimestamp: formatTime,
+                    NameGyosha: d.data().NameGyosha,
+                    NameGyoshaCompany: d.data().NameGyoshaCompany,
+                    Gyoshashurui: GyoshaShuruiSent
+                }
+            )
+
+        });
+
+        return () => {
+            unSub3();
+            console.log("unSub3を実行しました");
+        };
+    }, [NyusatsuId]);
     
 
     return (
@@ -62,15 +97,31 @@ const NyusatsuShosai = () => {
             <Stack spacing={3} sx={{alignItems:"center",pt:3,margin:"0 auto"}} >
 
                 <Stack  spacing={1}>
-                    <Typography variant="h6" color="text.success">山田春子</Typography>
-                    <Typography variant="h6" color="text.success">株式会社XXXX不動産</Typography>
+                    <Typography variant="h6" color="text.success">{Nyusatsudata.NameGyosha}</Typography>
+                    <Typography variant="h6" color="text.success">{Nyusatsudata.NameGyoshaCompany}</Typography>
                 </Stack>
 
-                <Card variant="outlined" sx={{width:375}}>
-                   {cardcontain1}
+                <Card variant="outlined" sx={{width:375 ,overflowWrap: "break-word"}}>
+                    <CardActionArea>
+                        <CardContent>
+                            <Stack spacing={1}>
+                                <Typography variant="h6" color="text.success">{Nyusatsudata.RegTimestamp}</Typography>
+                                <Typography variant="h6" color="text.success">
+                                    {Nyusatsudata.CommentToNakoudo}
+                                </Typography>
+                            </Stack>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
                 <Card variant="outlined" sx={{width:375}}>
-                   {cardcontain2}
+                    <CardActionArea>
+                        <CardContent>
+                            <Stack direction="row" spacing={1} divider={<Divider orientation="vertical" flexItem />} sx={{justifyContent:"space-between"}}>
+                                <Typography variant="h6" color="text.success">紹介料入札額</Typography>
+                                <Typography variant="h6" color="text.success">{`${Nyusatsudata.NyusatsuFee}万円`}</Typography>
+                            </Stack>
+                        </CardContent>
+                    </CardActionArea>
                 </Card>
 
                 <Stack  direction="row" spacing={3}>
@@ -114,15 +165,6 @@ const NyusatsuShosai = () => {
 
                 
             </Stack>
-
-
-
-            <Typography variant="h4" color="text.success"
-                sx={{textAlign:"center",pt:20}}
-            >
-                入札詳細画面
-            </Typography>
-
 
 
         </div>

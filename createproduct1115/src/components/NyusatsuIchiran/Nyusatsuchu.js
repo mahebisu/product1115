@@ -167,7 +167,8 @@ const Nyusatsuchu = (props) => {
                 {Nyusatsudata &&
                     Nyusatsudata.map((item,index) => (
 
-                        <Card variant="outlined" onClick={(e) => onClickCard(item.NyusatsuId,e)} key={index} value={`${item.NakoudoId}`}>
+                        // onClick={(e) => onClickCard(item.NyusatsuId,e)}の書き方学んだ
+                        <Card variant="outlined" sx={{Width:400}} onClick={(e) => onClickCard(item.NyusatsuId,e)} key={index} value={`${item.NakoudoId}`}>
                             <CardActionArea>
                                 <CardContent>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -175,7 +176,7 @@ const Nyusatsuchu = (props) => {
                                             <Stack  spacing={1}>
                                                 <Typography variant="h7" color="text.success">{`${item.NameGyoshaCompany}/`}</Typography>
                                                 <Typography variant="h6" color="text.success">{item.NameGyosha}</Typography>
-                                                <Typography variant="h6" color="text.success">{item.CommentToNakoudo}</Typography>
+                                                <Typography variant="h7" color="text.success">{`${item.CommentToNakoudo.slice(0,10)} ...`}</Typography>
                                             </Stack>
                                         </div>
                                         <div style={{paddingLeft:50}}>
