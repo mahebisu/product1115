@@ -28,6 +28,9 @@ import {
 import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp, orderBy, doc } from "firebase/firestore";
 import { db } from "../../firebase";
 
+// googlemapを挿入する
+    import Gmap from '../Gmap/Gmap';
+
 
 const ProjectShosai = () => {
 
@@ -225,14 +228,17 @@ const ProjectShosai = () => {
 
                     <Stack spacing={2}>
 
+                        {/* googlemapを挿入する */}
+                        <Gmap />
+                        
                         {/* ここには後でGooglemapsを入れる */}
-                        <Box sx={{
+                        {/* <Box sx={{
                             backgroundImage: `url(${pic2})`,
                             backgroundRepeat: "no-repeat",
                             backgroundSize: "100% auto",
                             width: "100%",
                             height: "500px"
-                        }} />
+                        }} /> */}
 
                         <Stack direction="row" spacing={5} sx={{ justifyContent: "space-around" }}>
 
