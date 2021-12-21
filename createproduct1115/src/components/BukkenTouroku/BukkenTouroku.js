@@ -28,6 +28,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 // firebaseのデータベース関連
     import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
     import { db} from "../../firebase";
+import GmapTouroku from '../Gmap/GmapTouroku';
 
 
 
@@ -199,6 +200,8 @@ const BukkenTouroku = () => {
 
         };
 
+    const [GmapAddress, setGmapAddress] = useState("");
+
 
     return (
 
@@ -227,16 +230,13 @@ const BukkenTouroku = () => {
                             message: "物件の住所を入力してください"
                             })}
                             error={"BukkenAddress" in errors}
+                            onChange={(e) => {
+                                setGmapAddress(e.target.value)
+                            }}
                         />
 
-                        {/* ここには後でGooglemapsを入れる */}
-                        <Box sx={{
-                            backgroundImage: `url(${pic1})`,
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "100% auto",
-                            width:"80%",
-                            height:"57.4vw",
-                        }}/>
+                        {/* googlemapを表示させる */}
+                        <GmapTouroku GmapAddress={GmapAddress} />
 
                         <Stack>
                             <Typography variant="h7" color="text.secondary">
