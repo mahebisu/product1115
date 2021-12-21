@@ -229,7 +229,7 @@ const ProjectShosai = () => {
                     <Stack spacing={2}>
 
                         {/* googlemapを挿入する */}
-                        <Gmap />
+                        <Gmap Address={Bukkendata.BukkenAddress}/>
                         
                         {/* ここには後でGooglemapsを入れる */}
                         {/* <Box sx={{
