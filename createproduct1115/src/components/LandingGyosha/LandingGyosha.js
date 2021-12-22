@@ -74,7 +74,7 @@ const LandingGyosha = () => {
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                お客様を紹介してもらえるサービスです 
+                お客様を紹介してもらえるサービスです（現在開発中）
             </h1>
 
             <h1 style={{textAlign:"center",

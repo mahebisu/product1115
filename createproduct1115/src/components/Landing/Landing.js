@@ -47,7 +47,7 @@ const Landing = () => {
                     color:"#00c899",
                     fontSize:"5vw"
                 }}>
-                    友達の不動産の相談を売ろう 
+                    友達の不動産の相談を売ろう
                 </h1>
 
                 {/* 登録ボタン */}
@@ -83,7 +83,7 @@ const Landing = () => {
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                不動産会社・建築業者に紹介して報酬をもらうサービスです 
+                不動産会社・建築業者に紹介して報酬をもらうサービスです（現在開発中） 
             </h1>
 
             <h1 style={{textAlign:"center",
