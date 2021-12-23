@@ -83,7 +83,7 @@ const Landing = () => {
             <h1 style={{textAlign:"center",
                 fontSize:"3vw"
             }}>
-                不動産会社・建築業者に紹介して報酬をもらうサービスです（現在開発中です） 
+                不動産会社・建築業者に紹介して報酬をもらうサービスです（現在開発中） 
             </h1>
 
             <h1 style={{textAlign:"center",
