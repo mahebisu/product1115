@@ -116,7 +116,7 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               fontSize:"1.5vw"
             }}>
-              LOGO予定
+              ナコフドウサン
             </Link>
 
           </Typography>
@@ -181,7 +181,7 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               fontSize:"1.5vw"
             }}>
-              LOGO予定
+              ナコフドウサン
             </Link>
           </Typography>
 
