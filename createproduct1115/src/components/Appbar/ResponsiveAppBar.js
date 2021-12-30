@@ -116,7 +116,7 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               // fontSize:"1.5vw"
             }}>
-              ナコフドウサン
+              NACOFUDOSAN
             </Link>
           </Typography>
 
@@ -180,7 +180,7 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               // fontSize:"1.5vw"
             }}>
-              ナコフドウサン
+              NACOFUDOSAN
             </Link>
           </Typography>
 
