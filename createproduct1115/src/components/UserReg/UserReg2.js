@@ -301,30 +301,6 @@ const UserReg2 = () => {
 
             </form>
 
-            <section style={{
-                display: 'flex',
-                justifyContent: 'space-between,center',
-                width: '95%',
-                margin: 'auto'
-            }}>
-                {/* dataをmapで表示 */}
-                {data.map((item,index) => (
-                    // 多要素は１つのdiv等で囲う
-                    <div key={index}>
-                        <div>{index}</div>
-                        <div>{item.id}</div>
-                        <div>{item.EmailNakoudo}</div>
-                        <div>{item.PassNakoudo}</div>
-                        <div>{item.NameNakoudo}</div>
-                        <div>{item.AddressNakoudo}</div>
-                        <div>{item.PhoneNakoudo}</div>
-                        <div>{item.NakoudoBirthYear}</div>
-                        <div>{item.NakoudoBirthMonth}</div>
-                        <div>{item.NakoudoBirthDay}</div>
-                    </div>
-                ))}
-            </section>
-
 
         </div>
 
