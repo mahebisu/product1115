@@ -197,24 +197,6 @@ const GyoshaReg = () => {
 
             </form>
 
-            <section style={{
-                display: 'flex',
-                justifyContent: 'space-between,center',
-                width: '95%',
-                margin: 'auto'
-            }}>
-                {/* dataをmapで表示 */}
-                {data.map((item,index) => (
-                    // 多要素は１つのdiv等で囲う
-                    <div key={index}>
-                        <div>{index}</div>
-                        <div>{item.EmailGyosha}</div>
-                        <div>{item.PassGyosha}</div>
-                    </div>
-                ))}
-            </section>
-
-
         </div>
 
     )

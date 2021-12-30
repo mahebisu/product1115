@@ -355,30 +355,6 @@ const GyoshaReg2 = () => {
 
             </form>
 
-            <section style={{
-                display: 'flex',
-                justifyContent: 'space-between,center',
-                width: '95%',
-                margin: 'auto'
-            }}>
-                {/* dataをmapで表示 */}
-                {data.map((item,index) => (
-                    // 多要素は１つのdiv等で囲う
-                    <div key={index}>
-                        <div>{index}</div>
-                        <div>{item.id}</div>
-                        <div>{item.EmailGyosha}</div>
-                        <div>{item.PassGyosha}</div>
-                        <div>{item.NameGyosha}</div>
-                        <div>{item.AddressGyosha}</div>
-                        <div>{item.PhoneGyosha}</div>
-                        <div>{item.GyoshaBirthYear}</div>
-                        <div>{item.GyoshaBirthMonth}</div>
-                        <div>{item.GyoshaBirthDay}</div>
-                    </div>
-                ))}
-            </section>
-
         </div>
 
     )
