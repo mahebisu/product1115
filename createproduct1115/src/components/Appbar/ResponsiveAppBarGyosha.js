@@ -75,8 +75,9 @@ const ResponsiveAppBar = () => {
 
       try {
         signOut(auth);
-        alert("ログアウトしました")
+        alert("ログアウトしました");//アラートだしてわかりやすく
         navigate("/LandingGyosha");
+        window.location.reload();//ログインがきちんと表示されるように
       } catch (error) {
         alert(error.message);
       }
