@@ -64,31 +64,27 @@ const BukkenTouroku = () => {
 
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
-                            <Tab label="売却" {...a11yProps(0)} />
-                            <Tab label="建替え・リフォーム" {...a11yProps(1)} />
+                            <Tab label="案件一覧" {...a11yProps(0)} />
+                            {/* <Tab label="建替え・リフォーム" {...a11yProps(1)} />
                             <Tab label="賃貸" {...a11yProps(2)} />
-                            <Tab label="その他有効活用" {...a11yProps(3)} />
+                            <Tab label="その他有効活用" {...a11yProps(3)} /> */}
                         </Tabs>
                     </Box>
 
                     <TabPanel value={value} index={0}>
-                        売却
                         {/* 入札中画面のコンポーネントを挿入 */}
                         <ProjectBaikyaku />
                     </TabPanel>
 
                     <TabPanel value={value} index={1}>
-                        建替え・リフォーム
                         {/* とりあえず入札中画面のコンポーネントを挿入 */}
                         <ProjectBaikyaku />
                     </TabPanel>
 
                     <TabPanel value={value} index={2}>
-                        賃貸
                     </TabPanel>
 
                     <TabPanel value={value} index={3}>
-                        その他有効活用
                     </TabPanel>
 
                 </Box>

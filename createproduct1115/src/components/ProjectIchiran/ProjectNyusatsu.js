@@ -135,7 +135,7 @@ const ProjectNyusatsu = () => {
                             NameGyoshaCompany: GyoshaData.NameGyoshaCompany
                         });
 
-                    navigate("/NyusatsuIchiran");
+                    navigate("/ProjectIchiran");
 
                 } catch (error) {
                     alert(error.message);

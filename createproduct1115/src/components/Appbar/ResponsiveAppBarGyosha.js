@@ -25,7 +25,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
   import { db, auth } from "../../firebase";
 
 const pages = ['取り組み中', '募集中', '内容３'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
 const pageslink = [
   `/NyusatsuIchiran`,
@@ -75,6 +75,7 @@ const ResponsiveAppBar = () => {
 
       try {
         signOut(auth);
+        alert("ログアウトしました")
         navigate("/LandingGyosha");
       } catch (error) {
         alert(error.message);
