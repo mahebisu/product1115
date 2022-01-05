@@ -1,6 +1,5 @@
 import React from "react";
 import BukkenTouroku from "./components/BukkenTouroku/BukkenTouroku";
-import TitlePage from "./components/TitlePage";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import Landing from "./components/Landing/Landing";
 import UserReg from "./components/UserReg/UserReg";

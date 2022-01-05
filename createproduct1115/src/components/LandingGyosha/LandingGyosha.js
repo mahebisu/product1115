@@ -3,7 +3,7 @@ import React from 'react'
 import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 // 写真をインポート
-import pic1 from "./top-main.jpg"
+import pic1 from "./topmain.jpg"
 import pic2 from "./toppic2.jpg"
 import pic3 from "./toppic3.jpg"
 import pic4 from "./toppic4.jpg"
@@ -13,7 +13,7 @@ const LandingGyosha = () => {
 
     return (
         
-        <div style={{backgroundColor:"#e9fef7"}}>
+        <div style={{backgroundColor:"#00c899"}}>
 
             {/* ResponsiveAppBarを挿入 */}
             <ResponsiveAppBarGyosha />
@@ -22,13 +22,13 @@ const LandingGyosha = () => {
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% auto",
                 width:"100%",
-                height:"57.4vw",
+                height:"46.5vw",
                 display:"flex",
                 justifyContent:"center",
                 alignItems:"center"
             }}>
 
-            <Stack spacing={2}
+            <Stack spacing={0}
                 sx={{justifyContent:"center",
                 alignItems: "center"
             }}
@@ -36,9 +36,9 @@ const LandingGyosha = () => {
 
                 <h1 style={{textAlign:"center",
                     color:"#00c899",
-                    fontSize:"5vw"
+                    fontSize:"4vw"
                 }}>
-                    独自の地主の紹介客がみつかる 
+                    地主のお客様を自分だけに紹介してもらおう 
                 </h1>
 
                 {/* 登録ボタン */}
@@ -53,7 +53,7 @@ const LandingGyosha = () => {
                     <Link to="/GyoshaReg"
                         style={{textDecoration:"none",
                         color:"#e9fef7",
-                        fontSize:"3vw"
+                        fontSize:"2vw"
                     }}>
                         業者登録開始
                     </Link>
@@ -66,28 +66,37 @@ const LandingGyosha = () => {
         <Stack spacing={2}>
 
             <h1 style={{textAlign:"center",
-                fontSize:"3vw"
+                fontSize:"2vw"
             }}>
-                〇〇〇〇〇は地主家族の不動産の相談を受けている人に 
+                ナコフドサンは地主家族の不動産の相談を受けている人から 
             </h1>
 
             <h1 style={{textAlign:"center",
-                fontSize:"3vw"
+                fontSize:"2vw"
             }}>
-                お客様を紹介してもらえるサービスです（現在開発中）
+                お客様を紹介してもらえるサービスです
             </h1>
 
             <h1 style={{textAlign:"center",
-                fontSize:"3vw"
+                fontSize:"2vw"
             }}>
                 ～買取・建替え・リフォーム・賃貸、提案はいろいろ～
             </h1>
 
             <h1 style={{textAlign:"center",
-                fontSize:"3vw"
+                fontSize:"2vw"
             }}>
-                市場に出回らない案件を誰よりも早く検討しよう            
+                市場に出回らない見込客を誰よりも早く検討しよう            
             </h1>
+
+            <h1 style={{textAlign:"center",
+                fontSize:"1.5vw",
+                paddingBottom:50
+
+            }}>
+                現在サービス事前登録募集中            
+            </h1>
+
 
         </Stack>
 
@@ -107,7 +116,7 @@ const LandingGyosha = () => {
                     alt="pic2"
                 />
                 <CardContent>
-                    <Typography variant="h4" color="text.secondary">
+                    <Typography sx={{fontSize:"2vw"}} color="text.secondary">
                         美容師、ネイリスト、パーソナルトレーナー、保険営業員、介護士、その他日々お客さんとの接点の多い「仲人」からお客さんを紹介してもらおう
                     </Typography>
                 </CardContent>
@@ -121,7 +130,7 @@ const LandingGyosha = () => {
                     alt="pic3"
                 />
                 <CardContent>
-                    <Typography variant="h4" color="text.secondary">
+                    <Typography sx={{fontSize:"2vw"}} color="text.secondary">
                         不動産を売却する/建替える/リフォームする/貸出す/太陽光発電する、その他有効活用などお客様の検討候補はいろいろ
                     </Typography>
                 </CardContent>
@@ -135,7 +144,7 @@ const LandingGyosha = () => {
                     alt="pic4"
                 />
                 <CardContent>
-                    <Typography variant="h4" color="text.secondary">
+                    <Typography sx={{fontSize:"2vw"}} color="text.secondary">
                         自分の欲しい案件をみつけたら、紹介してもらえるように紹介料を入札しよう
                     </Typography>
                 </CardContent>
@@ -152,7 +161,7 @@ const LandingGyosha = () => {
                     <Link to="/GyoshaReg"
                         style={{textDecoration:"none",
                         color:"#e9fef7",
-                        fontSize:"3vw"
+                        fontSize:"2vw"
                     }}>
                         業者登録開始
                     </Link>
@@ -160,14 +169,14 @@ const LandingGyosha = () => {
 
         </Stack>
 
-        <footer style={{pt:10,textAlign:"right"}}>
+        <footer style={{pt:10,textAlign:"center"}}>
             <p  sx={{pt:"5"}}>
                     <Link to="/"
                         style={{textDecoration:"none",
                         color:"#002c1b",
                         fontSize:"1vw"
                     }}>
-                        一般の紹介者の方はこちら
+                        お友達を紹介していただける方はこちら
                     </Link>
             </p>
         </footer>
