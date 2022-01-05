@@ -184,13 +184,6 @@ const UserReg = () => {
 
             </form>
 
-            <footer>
-                <div  sx={{margin:"1000 auto 1000"
-                        }}>
-                    footer
-                </div>
-            </footer>
-
         </div>
 
     )

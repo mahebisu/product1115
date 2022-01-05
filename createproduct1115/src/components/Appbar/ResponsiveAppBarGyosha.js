@@ -113,7 +113,7 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            <Link to={`/ProjectIchiran`}
+            <Link to={`/LandingGyosha`}
               style={{textDecoration:"none",
               color:"#e9fef7",
               fontSize:"1.5vw"
