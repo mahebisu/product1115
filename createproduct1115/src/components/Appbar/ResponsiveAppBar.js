@@ -24,6 +24,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
+// firebaseのデータベース関連
+import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc,where } from "firebase/firestore";
+
+
 const pages = ['取り組み中', '新規物件登録', '内容３'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
@@ -42,6 +46,7 @@ const ResponsiveAppBar = () => {
 
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
+  const [EmailNakoudo, setEmailNakoudo] = useState("");
 
   //   ここがログインできてるかどうか処理
     useEffect(() => {
@@ -50,10 +55,33 @@ const ResponsiveAppBar = () => {
           console.log(user, "user情報");
           // authにuser情報があれば、IsLoginをtrue
           user && setIsLogin(true);
+          // authにuser情報があれば、IsLoginをtrue
+          user.email && setEmailNakoudo(user.email);
+
           !user && navigate("/");
           });
       return () => unSub();
-    });
+     
+    },[]);
+
+    //ログインしたuserがgyoshaならLandingへ
+    useEffect(() => {
+
+      const q = query(collection(db, "user"), where("EmailNakoudo", "==", EmailNakoudo ));
+      const unSub3 = onSnapshot(q, (snapshot) => {
+
+        !snapshot && navigate("/LoginGyosha");
+        console.log("user情報なし");
+
+      });
+
+      return () => {
+          unSub3();
+          console.log("unSub3を実行しました");
+      };
+      
+    },[EmailNakoudo]);
+  
 
 
 

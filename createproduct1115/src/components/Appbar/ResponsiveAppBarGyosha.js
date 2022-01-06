@@ -24,6 +24,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
+  // firebaseのデータベース関連
+import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc,where } from "firebase/firestore";
+
+
 const pages = ['取り組み中', '募集中', '内容３'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
@@ -38,7 +42,8 @@ const ResponsiveAppBar = () => {
 
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
-
+  const [EmailGyosha, setEmailGyosha] = useState("");
+  
   //   ここがログインできてるかどうか処理
     useEffect(() => {
       //Firebase ver9 compliant (modular)
@@ -46,10 +51,31 @@ const ResponsiveAppBar = () => {
           console.log(user, "user情報");
           // authにuser情報があれば、IsLoginをtrue
           user && setIsLogin(true);
+          // authにuser情報があれば、IsLoginをtrue
+          user.email && setEmailGyosha(user.email);
+
           !user && navigate("/LandingGyosha");
           });
       return () => unSub();
     });
+
+    //ログインしたuserがuserならLandingへ
+    useEffect(() => {
+
+      const q = query(collection(db, "gyosha"), where("EmailGyosha", "==", EmailGyosha ));
+      const unSub3 = onSnapshot(q, (snapshot) => {
+
+        !snapshot && navigate("/Login");
+        
+      });
+
+      return () => {
+          unSub3();
+          console.log("unSub3を実行しました");
+      };
+      
+    },[IsLogin]);
+    
 
 
 
