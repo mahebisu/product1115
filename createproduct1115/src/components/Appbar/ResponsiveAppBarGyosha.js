@@ -43,6 +43,7 @@ const ResponsiveAppBar = () => {
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
   const [EmailGyosha, setEmailGyosha] = useState("");
+  console.log("EmailGyosha>",EmailGyosha);
   
   //   ここがログインできてるかどうか処理
     useEffect(() => {
@@ -57,7 +58,7 @@ const ResponsiveAppBar = () => {
           !user && navigate("/LandingGyosha");
           });
       return () => unSub();
-    });
+    },[]);
 
     //ログインしたuserがuserならLandingへ
     useEffect(() => {
@@ -67,7 +68,7 @@ const ResponsiveAppBar = () => {
 
         console.log("snapshot.docs>",snapshot.docs);
 
-        if(snapshot.docs.length >= 1){
+        if(snapshot.docs.length == 1){
 
           snapshot.docs.map((doc, index) => {
 
@@ -76,6 +77,12 @@ const ResponsiveAppBar = () => {
 
 
         } else {
+
+          snapshot.docs.map((doc, index) => {
+
+            console.log("doc.data()>",doc.data());
+          })
+
 
           console.log("user情報なし、gyoshaです");
           signOut(auth);
@@ -92,7 +99,7 @@ const ResponsiveAppBar = () => {
           console.log("unSub3を実行しました");
       };
       
-    },[IsLogin]);
+    },[EmailGyosha]);
     
 
 
