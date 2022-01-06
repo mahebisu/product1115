@@ -10,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import { Link } from "react-router-dom";
 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import logoyokogyosha from './logoyokogyosha.png';
 
 // ⇒@mui/icons-materialインストールした
   import MenuIcon from '@mui/icons-material/Menu';
@@ -170,7 +171,9 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               fontSize:"1.5vw"
             }}>
-              NACOFUDOSAN
+              <div>
+                <img src={logoyokogyosha} alt="logoyokogyosha" style={{width:"280px"}}/>
+              </div>
             </Link>
 
           </Typography>
@@ -235,7 +238,9 @@ const ResponsiveAppBar = () => {
               color:"#e9fef7",
               fontSize:"1.5vw"
             }}>
-              NACOFUDOSAN
+              <div>
+                <img src={logoyokogyosha} alt="logoyokogyosha" style={{width:"280px"}}/>
+              </div>
             </Link>
           </Typography>
 
