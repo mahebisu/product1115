@@ -1,6 +1,6 @@
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography} from '@mui/material'
 import React,{useEffect} from 'react'
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarLanding from '../Appbar/ResponsiveAppBarLanding'
 import { Link } from "react-router-dom";
 
 // ログイン処理
@@ -25,7 +25,8 @@ const Landing = () => {
         <div style={{backgroundColor:"#e9fef7"}}>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarLanding />
+
 
             <div style={{backgroundImage: `url(${pic1})`,
                 backgroundRepeat: "no-repeat",

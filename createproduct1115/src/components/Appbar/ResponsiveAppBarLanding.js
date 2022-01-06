@@ -24,17 +24,21 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
-const pages = ['取り組み中', '募集中', '内容３'];
+const pages = ['取り組み中', '新規物件登録', '内容３'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
 const pageslink = [
   `/NyusatsuIchiran`,
-  `/ProjectIchiran`,
-  `/ProjectIchiran`
+  `/BukkenTouroku`,
+  `/NyusatsuIchiran`
 ];
 
 
 const ResponsiveAppBar = () => {
+
+    // navigateを宣言
+    let navigate = useNavigate();
+
 
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
@@ -46,7 +50,8 @@ const ResponsiveAppBar = () => {
           console.log(user, "user情報");
           // authにuser情報があれば、IsLoginをtrue
           user && setIsLogin(true);
-          !user && navigate("/LandingGyosha");
+          // !user && navigate("/");
+
           });
       return () => unSub();
     });
@@ -56,8 +61,6 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  // navigateを宣言
-    let navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -77,7 +80,7 @@ const ResponsiveAppBar = () => {
       try {
         signOut(auth);
         alert("ログアウトしました");//アラートだしてわかりやすく
-        navigate("/LandingGyosha");
+        navigate("/");
         window.location.reload();//ログインがきちんと表示されるように
       } catch (error) {
         alert(error.message);
@@ -93,15 +96,15 @@ const ResponsiveAppBar = () => {
   };
 
   const navigateLogin = () => {
-    navigate("/LoginGyosha")
+    navigate("/Login")
   };
 
   return (
     <AppBar position="static"
       // appbarの色を指定する
-      sx={{backgroundColor:"#002c1b"}}
+      sx={{backgroundColor:"#00c899"}}
     >
-    
+
       <Container maxWidth="xl"
       >
 
@@ -114,14 +117,13 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            <Link to={`/LandingGyosha`}
+            <Link to={`/`}
               style={{textDecoration:"none",
               color:"#e9fef7",
-              fontSize:"1.5vw"
+              // fontSize:"1.5vw"
             }}>
               NACOFUDOSAN
             </Link>
-
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -159,12 +161,12 @@ const ResponsiveAppBar = () => {
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">
                     <Link to={pageslink[index]}
-                      style={{textDecoration:"none",
-                      color:"#e9fef7",
-                      // fontSize:"1.5vw"
-                    }}>
-                      {page}
-                  </Link>
+                        style={{textDecoration:"none",
+                        color:"#e9fef7",
+                        // fontSize:"1.5vw"
+                      }}>
+                        {page}
+                    </Link>
                   </Typography>
                 </MenuItem>
               ))}
@@ -179,10 +181,10 @@ const ResponsiveAppBar = () => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            <Link to={`/ProjectIchiran`}
+            <Link to={`/NyusatsuIchiran`}
               style={{textDecoration:"none",
               color:"#e9fef7",
-              fontSize:"1.5vw"
+              // fontSize:"1.5vw"
             }}>
               NACOFUDOSAN
             </Link>
@@ -196,13 +198,13 @@ const ResponsiveAppBar = () => {
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-              <Link to={pageslink[index]}
-                style={{textDecoration:"none",
-                color:"#e9fef7",
-                // fontSize:"1.5vw"
-              }}>
-                {page}
-              </Link>
+                <Link to={pageslink[index]}
+                  style={{textDecoration:"none",
+                  color:"#e9fef7",
+                  // fontSize:"1.5vw"
+                }}>
+                  {page}
+                </Link>
               </Button>
 
             ))}
@@ -215,7 +217,7 @@ const ResponsiveAppBar = () => {
                   (
                   <Tooltip title="Open settings">
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                      <Avatar src={AccountCircleIcon} sx={{ bgcolor: "#00c899" }} />
+                      <Avatar src={AccountCircleIcon} sx={{ bgcolor: "#002c1b" }} />
                     </IconButton>
                   </Tooltip>
                   )

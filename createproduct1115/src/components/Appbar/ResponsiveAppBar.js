@@ -36,6 +36,10 @@ const pageslink = [
 
 const ResponsiveAppBar = () => {
 
+    // navigateを宣言
+    let navigate = useNavigate();
+
+
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
 
@@ -46,6 +50,7 @@ const ResponsiveAppBar = () => {
           console.log(user, "user情報");
           // authにuser情報があれば、IsLoginをtrue
           user && setIsLogin(true);
+          !user && navigate("/");
           });
       return () => unSub();
     });
@@ -55,8 +60,6 @@ const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  // navigateを宣言
-    let navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
