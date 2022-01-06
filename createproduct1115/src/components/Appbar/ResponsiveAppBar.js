@@ -70,8 +70,26 @@ const ResponsiveAppBar = () => {
       const q = query(collection(db, "user"), where("EmailNakoudo", "==", EmailNakoudo ));
       const unSub3 = onSnapshot(q, (snapshot) => {
 
-        !snapshot && navigate("/LoginGyosha");
-        console.log("user情報なし");
+        console.log("snapshot.docs>",snapshot.docs);
+
+        if(snapshot.docs.length >= 1){
+
+          snapshot.docs.map((doc, index) => {
+
+            console.log("doc.data()>",doc.data());
+          })
+
+
+        } else {
+
+          console.log("user情報なし、gyoshaです");
+          signOut(auth);
+          navigate("/LandingGyosha");
+          alert("不動産会社・建設会社様TOPページにご案内します");
+
+
+        }
+
 
       });
 

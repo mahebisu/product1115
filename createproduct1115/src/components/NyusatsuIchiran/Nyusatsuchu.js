@@ -66,7 +66,7 @@ const Nyusatsuchu = (props) => {
                     console.log("ログイン中のidをNakoudoIdにsetした", doc.id);
                 };
 
-                console.log(index, doc.data().EmailNakoudo, EmailNakoudo);
+                // console.log(index, doc.data().EmailNakoudo, EmailNakoudo);
 
             })
 
@@ -147,7 +147,7 @@ const Nyusatsuchu = (props) => {
         }, [NakoudoId]);
 
 
-    console.log("Nyusatsudata>", Nyusatsudata);
+    // console.log("Nyusatsudata>", Nyusatsudata);
 
 
     let navigate = useNavigate();
