@@ -42,7 +42,7 @@ const ResponsiveAppBar = () => {
 
     // navigateを宣言
     let navigate = useNavigate();
-    
+
     //サインアウト関数を定義
     const SignOutImportInside = async (navigationto) =>{
 
@@ -217,7 +217,7 @@ const ResponsiveAppBar = () => {
                   <Typography textAlign="center">
                     <Link to={pageslink[index]}
                         style={{textDecoration:"none",
-                        color:"#e9fef7",
+                        color:"#002c1b",
                         // fontSize:"1.5vw"
                       }}>
                         {page}
