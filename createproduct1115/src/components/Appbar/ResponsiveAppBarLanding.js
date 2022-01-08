@@ -24,6 +24,8 @@ import logoyoko from './logoyoko2.png';
   import { onAuthStateChanged, signOut } from "firebase/auth";
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
+  import SignOutImport from '../SignOutImport';
+
 
 const pages = ['メッセージ', '新規物件登録'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
@@ -38,6 +40,21 @@ const ResponsiveAppBar = () => {
 
     // navigateを宣言
     let navigate = useNavigate();
+    const SignOutImportInside = async (navigationto) =>{
+
+      try {
+          await signOut(auth);
+          alert("ログアウトしました");//アラートだしてわかりやすく
+          navigate(navigationto);
+          window.location.reload();//ログインがきちんと表示されるように
+        } catch (error) {
+  
+          alert(error.message);
+  
+      };
+
+    }
+
 
 
   // IsLoginを宣言する
@@ -77,14 +94,7 @@ const ResponsiveAppBar = () => {
     // logoutボタンを押したら、logoutする
     if (event.target.textContent == settings[3]){
 
-      try {
-        signOut(auth);
-        alert("ログアウトしました");//アラートだしてわかりやすく
-        navigate("/");
-        window.location.reload();//ログインがきちんと表示されるように
-      } catch (error) {
-        alert(error.message);
-      }
+      SignOutImportInside("/");
 
     }
 

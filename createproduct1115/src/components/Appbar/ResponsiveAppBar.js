@@ -24,6 +24,7 @@ import logoyoko from './logoyoko2.png';
   import { onAuthStateChanged, signOut } from "firebase/auth";
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
+  import SignOutImport from '../SignOutImport';
 
 // firebaseのデータベース関連
 import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc,where } from "firebase/firestore";
@@ -42,7 +43,20 @@ const ResponsiveAppBar = () => {
 
     // navigateを宣言
     let navigate = useNavigate();
+    const SignOutImportInside = async (navigationto) =>{
 
+      try {
+          await signOut(auth);
+          alert("ログアウトしました");//アラートだしてわかりやすく
+          navigate(navigationto);
+          window.location.reload();//ログインがきちんと表示されるように
+        } catch (error) {
+  
+          alert(error.message);
+  
+      };
+
+    }
 
   // IsLoginを宣言する
   const [IsLogin, setIsLogin] = useState(false);
@@ -83,9 +97,8 @@ const ResponsiveAppBar = () => {
         } else {
 
           console.log("user情報なし、gyoshaです");
-          signOut(auth);
-          navigate("/LandingGyosha");
-          alert("不動産会社・建設会社様TOPページにご案内します");
+
+          SignOutImportInside("/LandingGyosha");
 
 
         }
@@ -122,16 +135,9 @@ const ResponsiveAppBar = () => {
     // logoutボタンを押したら、logoutする
     if (event.target.textContent == settings[3]){
 
-      try {
-        signOut(auth);
-        alert("ログアウトしました");//アラートだしてわかりやすく
-        navigate("/");
-        window.location.reload();//ログインがきちんと表示されるように
-      } catch (error) {
-        alert(error.message);
-      }
+      SignOutImportInside("/");
 
-    }
+      }
 
     setAnchorElNav(null);
   };
