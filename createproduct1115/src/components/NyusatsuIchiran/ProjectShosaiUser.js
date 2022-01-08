@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Stack, TextField, Box, Typography } from "@mui/material";
 import { useForm } from "react-hook-form";
-import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
+import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
 import { Link, useLocation } from "react-router-dom";
-import pic2 from "./mappic2.png"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -32,11 +31,11 @@ import { db } from "../../firebase";
     import Gmap from '../Gmap/Gmap';
 
 
-const ProjectShosai = () => {
+const ProjectShosaiUser = () => {
 
     // ProjectBaikyakuから?id=のprojectidをゲット
     const urlidquery = new URLSearchParams(useLocation().search);
-    const ProjectId = urlidquery.get("id");
+    const ProjectId = urlidquery.get("ProjectId");
     console.log("ProjectId>", ProjectId);
 
     // useStateでfirebaseから読み込む、bukkendataをデフォルトで定義  
@@ -218,7 +217,7 @@ const ProjectShosai = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBarGyosha />
+            <ResponsiveAppBar />
 
             <h1 style={{ textAlign: "center" }}>案件情報詳細</h1>
 
@@ -330,34 +329,16 @@ const ProjectShosai = () => {
                             fullWidth
                             style={{ margintop: 500, width: 300 }}
                         >
-                            <Link to="/ProjectIchiran"
+                            <Link to="/NyusatsuIchiran"
                                 style={{
                                     textDecoration: "none",
                                     color: "#e9fef7",
                                     fontSize: "1.5vw"
                                 }}>
-                                質問する(対応予定)
+                                戻る
                             </Link>
                         </Button>
 
-                        <Button
-                            onClick={onSubmit}
-                            color="warning"
-                            variant="contained"
-                            size="large"
-                            type="submit"
-                            fullWidth
-                            style={{ margintop: 500, width: 300 }}
-                        >
-                            <Link to={`/ProjectNyusatsu?NakoudoId=${Bukkendata.NakoudoId}&ProjectId=${ProjectId}`}
-                                style={{
-                                    textDecoration: "none",
-                                    color: "#e9fef7",
-                                    fontSize: "1.5vw"
-                                }}>
-                                紹介料入札
-                            </Link>
-                        </Button>
                     </Stack>
 
                 </Container>
@@ -367,4 +348,4 @@ const ProjectShosai = () => {
     )
 }
 
-export default ProjectShosai
+export default ProjectShosaiUser

@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography,TextField } from '@mui/material'
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarLanding from '../Appbar/ResponsiveAppBarLanding'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -161,7 +161,7 @@ const UserReg2 = () => {
                             { merge: true }
                             );
 
-                        navigate("/NyusatsuIchiran");
+                        navigate("/BukkenTouroku");
 
 
 
@@ -180,7 +180,7 @@ const UserReg2 = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarLanding />
 
             <form onSubmit={handleSubmit(onSubmit)}>
 

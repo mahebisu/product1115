@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react'
 
 import { Button, Container, Stack,Card,CardContent,CardMedia,Typography,TextField } from '@mui/material'
-import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
+import ResponsiveAppBarGyoshaLanding from '../Appbar/ResponsiveAppBarGyoshaLanding'
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -136,7 +136,7 @@ const GyoshaReg = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBarGyosha />
+            <ResponsiveAppBarGyoshaLanding />
 
             <form onSubmit={handleSubmit(onSubmit)}>
 

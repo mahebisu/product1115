@@ -66,7 +66,7 @@ const BukkenIchiran = (props) => {
                     console.log("ログイン中のidをNakoudoIdにsetした", doc.id);
                 };
 
-                console.log(index, doc.data().EmailNakoudo, EmailNakoudo);
+                // console.log(index, doc.data().EmailNakoudo, EmailNakoudo);
 
             })
 
@@ -158,9 +158,9 @@ const BukkenIchiran = (props) => {
 
     let navigate = useNavigate();
 
-    const onClickCard = (props) => {
-        console.log("クリックしたよ");
-        navigate("/NyusatsuShosai")
+    const onClickCard = (ProjectId,e) => {
+        console.log("クリックしたよ",ProjectId,e);
+        navigate(`/ProjectShosaiUser?ProjectId=${ProjectId}`)
     };
 
 
@@ -172,7 +172,7 @@ const BukkenIchiran = (props) => {
 
                 {ProjectData &&
                     ProjectData.map((item,index) => (
-                        <Card variant="outlined"  style={{width:375}} onClick={onClickCard} key={index}>
+                        <Card variant="outlined"  style={{width:375}} onClick={(e) => onClickCard(item.id,e)} key={index} value={`${item.id}`}>
                             <CardActionArea>
                                 <CardContent>
                                     <div style={{ display: "flex", justifyContent: "space-between" }}>
