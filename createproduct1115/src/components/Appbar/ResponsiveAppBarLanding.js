@@ -25,7 +25,7 @@ import logoyoko from './logoyoko2.png';
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
 
-const pages = ['取り組み中', '新規物件登録'];
+const pages = ['メッセージ', '新規物件登録'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
 const pageslink = [
