@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Container, Stack, TextField, Typography } from "@mui/material";
-import ResponsiveAppBar from '../Appbar/ResponsiveAppBar'
+import ResponsiveAppBarGyosha from '../Appbar/ResponsiveAppBarGyosha'
 import { Link } from "react-router-dom";
 
 // タブを作成するためにimportする
@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Nyusatsuchu from './Nyusatsuchu';
-import BukkenIchiran from './BukkenIchiran';
+import NyusatsuchuGyosha from './NyusatsuchuGyosha';
 
 // タブを動かすためにファンクションを定義、コピペ
 function TabPanel(props) {
@@ -45,7 +44,7 @@ function a11yProps(index) {
     };
 }
 
-const NyusatsuchuGyosha = () => {
+const NyusatsuIchinranGyosha = () => {
 
     const [value, setValue] = React.useState(0);
 
@@ -58,7 +57,7 @@ const NyusatsuchuGyosha = () => {
         <div>
 
             {/* ResponsiveAppBarを挿入 */}
-            <ResponsiveAppBar />
+            <ResponsiveAppBarGyosha />
 
             {/* タブ部分 */}
             <Box sx={{ width: '100%' }}>
@@ -67,22 +66,17 @@ const NyusatsuchuGyosha = () => {
                     <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
                         <Tab label="入札中" {...a11yProps(0)} />
                         <Tab label="Q&A" {...a11yProps(1)} />
-                        <Tab label="登録物件一覧" {...a11yProps(2)} />
                     </Tabs>
                 </Box>
 
                 <TabPanel value={value} index={0}>
                     {/* 入札中画面のコンポーネントを挿入 */}
-                    <Nyusatsuchu />
+                    <NyusatsuchuGyosha />
                 </TabPanel>
 
                 <TabPanel value={value} index={1}>
                     <p style={{textAlign:"center"}}>Q&A⇒今後実装予定</p>
                     {/* とりあえず入札中画面のコンポーネントを挿入 */}
-                </TabPanel>
-
-                <TabPanel value={value} index={2}>
-                    <BukkenIchiran />
                 </TabPanel>
 
             </Box>
@@ -93,4 +87,4 @@ const NyusatsuchuGyosha = () => {
     )
 }
 
-export default NyusatsuchuGyosha
+export default NyusatsuIchinranGyosha

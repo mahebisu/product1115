@@ -29,12 +29,11 @@ import logoyokogyosha from './logoyokogyosha.png';
 import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc,where } from "firebase/firestore";
 
 
-const pages = ['取り組み中', '募集中', '内容３'];
+const pages = ['取り組み中', '募集中'];
 const settings = ['Profile(工事中)', 'Account(工事中)', 'Dashboard(工事中)', 'Logout'];
 
 const pageslink = [
-  `/NyusatsuIchiran`,
-  `/ProjectIchiran`,
+  `/NyusatsuIchiranGyosha`,
   `/ProjectIchiran`
 ];
 

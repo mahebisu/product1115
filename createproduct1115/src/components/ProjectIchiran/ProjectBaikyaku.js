@@ -46,7 +46,7 @@ const ProjectBaikyaku = (props) => {
             }]
         );
 
-    console.log("Bukkendata>",Bukkendata);
+    // console.log("Bukkendata>",Bukkendata);
 
     // useEffectを使ってdb>projectのデータを取得する
     useEffect(() => {
@@ -64,7 +64,7 @@ const ProjectBaikyaku = (props) => {
                             ${doc.data().RegTimestamp.toDate().getMonth()+1}月
                             ${doc.data().RegTimestamp.toDate().getDate()}日
                         `
-                        console.log("formatTime>",formatTime);
+                        // console.log("formatTime>",formatTime);
 
                         let BukkenShuruiSent = "";
                         if (doc.data().BukkenShurui == "Kodate"){
@@ -75,7 +75,7 @@ const ProjectBaikyaku = (props) => {
                             BukkenShuruiSent = "分譲マンション";
                         }
 
-                        console.log("BukkenShuruiSent>",BukkenShuruiSent);
+                        // console.log("BukkenShuruiSent>",BukkenShuruiSent);
 
                         return ({
                             id: doc.id,
@@ -102,7 +102,7 @@ const ProjectBaikyaku = (props) => {
 
         return () => {
             unSub();
-            console.log("Bukkendata>",Bukkendata);
+            // console.log("Bukkendata>",Bukkendata);
         };
     }, []);
 

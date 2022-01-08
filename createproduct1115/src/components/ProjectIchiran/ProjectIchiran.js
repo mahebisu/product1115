@@ -82,9 +82,12 @@ const BukkenTouroku = () => {
                     </TabPanel>
 
                     <TabPanel value={value} index={2}>
+                        <ProjectBaikyaku />
+
                     </TabPanel>
 
                     <TabPanel value={value} index={3}>
+                        <ProjectBaikyaku />
                     </TabPanel>
 
                 </Box>
