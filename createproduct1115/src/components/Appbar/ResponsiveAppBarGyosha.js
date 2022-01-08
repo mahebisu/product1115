@@ -24,7 +24,6 @@ import logoyokogyosha from './logoyokogyosha.png';
   import { onAuthStateChanged, signOut } from "firebase/auth";
   import { useNavigate } from "react-router-dom";
   import { db, auth } from "../../firebase";
-  import SignOutImport from '../SignOutImport';
 
 
   // firebaseのデータベース関連
