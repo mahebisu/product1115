@@ -42,6 +42,8 @@ const ResponsiveAppBar = () => {
 
     // navigateを宣言
     let navigate = useNavigate();
+    
+    //サインアウト関数を定義
     const SignOutImportInside = async (navigationto) =>{
 
       try {
@@ -97,6 +99,7 @@ const ResponsiveAppBar = () => {
 
           console.log("user情報なし、gyoshaです");
 
+          //定義したSignOutImportInsideを呼び出し
           SignOutImportInside("/LandingGyosha");
 
 

@@ -106,6 +106,8 @@ const ResponsiveAppBar = () => {
 
   // navigateを宣言
     let navigate = useNavigate();
+
+    //サインアウト関数を定義
     const SignOutImportInside = async (navigationto) =>{
 
       try {
