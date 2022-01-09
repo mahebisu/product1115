@@ -26,7 +26,7 @@ import InputAdornment from '@mui/material/InputAdornment';
     } from "firebase/auth";
 
 // firebaseのデータベース関連
-    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc } from "firebase/firestore";
+    import { collection, query, onSnapshot, addDoc, setDoc, serverTimestamp,orderBy,doc,where } from "firebase/firestore";
     import { db} from "../../firebase";
 import GmapTouroku from '../Gmap/GmapTouroku';
 
@@ -117,7 +117,7 @@ const BukkenTouroku = () => {
 
             // 次にデータを取得して、メールアドレスに対応するdoc.idを取得する
             //Firebase ver9 compliant (modular)
-                const q = query(collection(db, "user"), orderBy("RegTimestamp", "desc"));
+                const q = query(collection(db, "user"),where("EmailNakoudo", "==", EmailNakoudo ));
                 const unSub2 = onSnapshot(q, (snapshot) => {
 
                     snapshot.docs.map((doc,index) => {
