@@ -153,7 +153,7 @@ const BukkenIchiran = (props) => {
         }, [NakoudoId]);
 
 
-    console.log("Nyusatsudata>", ProjectData);
+    // console.log("Nyusatsudata>", ProjectData);
 
 
     let navigate = useNavigate();

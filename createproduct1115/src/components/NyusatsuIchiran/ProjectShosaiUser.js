@@ -74,7 +74,7 @@ const ProjectShosaiUser = () => {
         const q = query(doc(db, "project", ProjectId));
         const unSub = onSnapshot(q, (snapshot) => {
 
-            console.log("snapshot>", snapshot.data());
+            // console.log("snapshot>", snapshot.data());
 
             // firebaseのtimestampを文字列に変換する
             let formatTime = `
@@ -145,7 +145,7 @@ const ProjectShosaiUser = () => {
 
     console.log("Bukkendata.BukkenTeian>", Bukkendata.BukkenTeian);
     console.log("NakoudoId>", Bukkendata.NakoudoId);
-    console.log("Bukkendata>", Bukkendata);
+    // console.log("Bukkendata>", Bukkendata);
 
     // useEffectを使ってNakoudoIdからNameNakoudoのデータを取得する
     useEffect(() => {
@@ -164,7 +164,7 @@ const ProjectShosaiUser = () => {
                     setNakoudoname(k);
                     console.log("doc.id == NakoudoId一致しました");
                 } else {
-                    console.log("doc.id == NakoudoId一致しませんでした");
+                    // console.log("doc.id == NakoudoId一致しませんでした");
                 }
 
             });
