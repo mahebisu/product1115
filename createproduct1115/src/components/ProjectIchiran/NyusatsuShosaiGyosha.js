@@ -122,7 +122,7 @@ const NyusatsuShosaiGyosha = () => {
         const q = query(doc(db, "project", ProjectId));
         const unSub = onSnapshot(q, (snapshot) => {
 
-            console.log("snapshot>", snapshot.data());
+            // console.log("snapshot>", snapshot.data());
 
             // firebaseのtimestampを文字列に変換する
             let formatTime = `
@@ -193,7 +193,7 @@ const NyusatsuShosaiGyosha = () => {
 
     console.log("Bukkendata.BukkenTeian>", Bukkendata.BukkenTeian);
     console.log("NakoudoId>", Bukkendata.NakoudoId);
-    console.log("Bukkendata>", Bukkendata);
+    // console.log("Bukkendata>", Bukkendata);
 
     const [Nakoudoname, setNakoudoname] = useState("");
     console.log("NameNakoudo>", Nakoudoname);

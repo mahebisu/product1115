@@ -146,7 +146,7 @@ const ProjectShosai = () => {
 
     console.log("Bukkendata.BukkenTeian>", Bukkendata.BukkenTeian);
     console.log("NakoudoId>", Bukkendata.NakoudoId);
-    console.log("Bukkendata>", Bukkendata);
+    // console.log("Bukkendata>", Bukkendata);
 
     // useEffectを使ってNakoudoIdからNameNakoudoのデータを取得する
     useEffect(() => {
@@ -157,15 +157,15 @@ const ProjectShosai = () => {
 
             snapshot.docs.map((doc) => {
 
-                console.log("doc.id>", doc.id, "NakoudoId>", NakoudoId);
-                console.log("doc.data().NameNakoudo>", doc.data().NameNakoudo);
+                // console.log("doc.id>", doc.id, "NakoudoId>", NakoudoId);
+                // console.log("doc.data().NameNakoudo>", doc.data().NameNakoudo);
 
                 if (doc.id === NakoudoId) {
                     let k = doc.data().NameNakoudo;
                     setNakoudoname(k);
                     console.log("doc.id == NakoudoId一致しました");
                 } else {
-                    console.log("doc.id == NakoudoId一致しませんでした");
+                    // console.log("doc.id == NakoudoId一致しませんでした");
                 }
 
             });
