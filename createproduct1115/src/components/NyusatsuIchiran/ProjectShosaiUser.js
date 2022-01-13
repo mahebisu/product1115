@@ -156,8 +156,8 @@ const ProjectShosaiUser = () => {
 
             snapshot.docs.map((doc) => {
 
-                console.log("doc.id>", doc.id, "NakoudoId>", NakoudoId);
-                console.log("doc.data().NameNakoudo>", doc.data().NameNakoudo);
+                // console.log("doc.id>", doc.id, "NakoudoId>", NakoudoId);
+                // console.log("doc.data().NameNakoudo>", doc.data().NameNakoudo);
 
                 if (doc.id === NakoudoId) {
                     let k = doc.data().NameNakoudo;

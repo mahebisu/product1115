@@ -82,7 +82,7 @@ const GyoshaReg2 = () => {
                     setData(
                         snapshot.docs.map((doc,index) => {
 
-                            console.log(index,doc.data().EmailGyosha,EmailGyosha);
+                            // console.log(index,doc.data().EmailGyosha,EmailGyosha);
 
                             if(doc.data().EmailGyosha === EmailGyosha){
                                 setGyoshaId(doc.id);

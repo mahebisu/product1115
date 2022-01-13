@@ -85,13 +85,13 @@ const ResponsiveAppBar = () => {
       const q = query(collection(db, "user"), where("EmailNakoudo", "==", EmailNakoudo ));
       const unSub3 = onSnapshot(q, (snapshot) => {
 
-        console.log("snapshot.docs>",snapshot.docs);
+        // console.log("snapshot.docs>",snapshot.docs);
 
         if(snapshot.docs.length >= 1){
 
           snapshot.docs.map((doc, index) => {
 
-            console.log("doc.data()>",doc.data());
+            // console.log("doc.data()>",doc.data());
           })
 
 

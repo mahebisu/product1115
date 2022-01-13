@@ -84,7 +84,7 @@ const UserReg2 = () => {
                     setData(
                         snapshot.docs.map((doc,index) => {
 
-                            console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
+                            // console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
 
                             if(doc.data().EmailNakoudo === EmailNakoudo){
                                 setNakoudoId(doc.id);

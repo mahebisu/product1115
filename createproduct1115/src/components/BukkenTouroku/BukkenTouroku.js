@@ -127,7 +127,7 @@ const BukkenTouroku = () => {
                             console.log("ログイン中のidをNakoudoIdにsetした",doc.id);
                         };
 
-                        console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
+                        // console.log(index,doc.data().EmailNakoudo,EmailNakoudo);
 
                     })
 

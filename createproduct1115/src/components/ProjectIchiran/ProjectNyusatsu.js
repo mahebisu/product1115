@@ -78,7 +78,7 @@ const ProjectNyusatsu = () => {
                             console.log("ログイン中のidをGyoshaIdにsetした",doc.id);
                         };
 
-                        console.log(index,doc.data().EmailGyosha,EmailGyosha);
+                        // console.log(index,doc.data().EmailGyosha,EmailGyosha);
 
                     })
 
