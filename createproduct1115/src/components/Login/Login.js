@@ -59,7 +59,7 @@ const UserReg = () => {
             console.log("メールとパスは>",email,password);
 
         // getValuesの値がエラーなく入れられているかのチェック、inValid?
-            console.log("getvalue",getValuetachi);
+            // console.log("getvalue",getValuetachi);
 
         // createUserWithEmailAndPasswordでuseStateのemail、password値をそれぞれfirebaseに送る工程
             // if (IsLogin) { 

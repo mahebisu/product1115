@@ -139,7 +139,7 @@ const UserReg2 = () => {
 
             // formで入力した値をgetValuesで取得する
                 let getValuetachi = getValues();
-                console.log("getValuetachi>",getValuetachi);
+                // console.log("getValuetachi>",getValuetachi);
 
             // User登録のfunctionを定義
                 async function CreateUserFunction2() {

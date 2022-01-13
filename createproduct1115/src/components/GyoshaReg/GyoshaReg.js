@@ -82,7 +82,7 @@ const GyoshaReg = () => {
 
         // formで入力した値をgetValuesで取得する
             let getValuetachi = getValues();
-            console.log("getValuetachi>",getValuetachi);
+            // console.log("getValuetachi>",getValuetachi);
 
         // ログインのfunctionを定義
             async function SigninFunction() {

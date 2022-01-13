@@ -199,7 +199,7 @@ const ProjectShosai = () => {
 
         // formで入力した値をgetValuesで取得する
         const getValuetachi = getValues();
-        console.log(getValuetachi);
+        // console.log(getValuetachi);
 
         // errorsを表示させる
         console.log("errors>", errors);

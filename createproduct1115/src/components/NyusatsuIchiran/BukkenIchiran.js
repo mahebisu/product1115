@@ -159,7 +159,7 @@ const BukkenIchiran = (props) => {
     let navigate = useNavigate();
 
     const onClickCard = (ProjectId,e) => {
-        console.log("クリックしたよ",ProjectId,e);
+        // console.log("クリックしたよ",ProjectId,e);
         navigate(`/ProjectShosaiUser?ProjectId=${ProjectId}`)
     };
 

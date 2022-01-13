@@ -81,7 +81,7 @@ const ResponsiveAppBar = () => {
 
           snapshot.docs.map((doc, index) => {
 
-            console.log("doc.data()>",doc.data());
+            // console.log("doc.data()>",doc.data());
           })
 
           console.log("user情報なし、gyoshaです");
@@ -134,7 +134,7 @@ const ResponsiveAppBar = () => {
 
   const handleCloseNavMenu = (event) => {
 
-    console.log("navmenuを押してevent>",event.target.textContent);
+    // console.log("navmenuを押してevent>",event.target.textContent);
 
     // logoutボタンを押したら、logoutする
     if (event.target.textContent == settings[3]){

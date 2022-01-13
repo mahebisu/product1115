@@ -153,7 +153,7 @@ const Nyusatsuchu = (props) => {
     let navigate = useNavigate();
 
     const onClickCard = (NyusatsuId,e) => {
-        console.log("クリックしたよ>",NyusatsuId,e);
+        // console.log("クリックしたよ>",NyusatsuId,e);
         navigate(`/NyusatsuShosai?id=${NyusatsuId}`)
     };
 

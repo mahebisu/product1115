@@ -35,7 +35,7 @@ const GmapTouroku = ({GmapAddress}) => {
             response => {
 
                 setMapCenter(response.results[0].geometry.location);
-                console.log("response.results[0].geometry.location>",response.results[0].geometry.location);
+                // console.log("response.results[0].geometry.location>",response.results[0].geometry.location);
 
             },
             error => {

@@ -115,7 +115,7 @@ const ProjectNyusatsu = () => {
 
             // formで入力した値をgetValuesで取得する
                 const getValuetachi = getValues();
-                console.log(getValuetachi);
+                // console.log(getValuetachi);
 
             // User登録のfunctionを定義
             async function CreateNyusatsuFunction() {

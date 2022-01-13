@@ -143,7 +143,7 @@ const GyoshaReg2 = () => {
 
         // formで入力した値をgetValuesで取得する
             let getValuetachi = getValues();
-            console.log("getValuetachi>",getValuetachi);
+            // console.log("getValuetachi>",getValuetachi);
 
         // User登録のfunctionを定義
             async function CreateGyoshaFunction() {
@@ -187,7 +187,7 @@ const GyoshaReg2 = () => {
     // radioボタンの値を取得する関数の定義
         const radioChange = (event) => {
             setGyoshashurui(event.target.value);
-            console.log(event.target.value)
+            // console.log(event.target.value)
         };
 
 
